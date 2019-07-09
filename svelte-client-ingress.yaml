@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svelte-client-svc
+spec:
+  selector:
+    app: svelte-client
+  ports:
+    - port: 3000
+      targetPort: 3000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: svelte-client-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /svelte
+        backend:
+          serviceName: svelte-client-svc
+          servicePort: 3000
+
+# For local development or other purposes
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: svelte-client-np
+# spec:
+#   type: NodePort
+#   selector:
+#     app: svelte-client
+#   ports:
+#     # Which port on the node is the service available through?    
+#     - nodePort: 30303
+#     # Inside the cluster, what port does the service expose?
+#       port: 3000
+#     # Which port do pods selected by this service expose?
+#       targetPort: 3000
