@@ -34,10 +34,9 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         env:
-        - name: BROKER_SERVICE
-          value: kafka-kafka-0.kafka-svc:9092
-        - name: SECRET_KEY
-          value: 'big-secret123'
+          #TODO: get TLS working because this is v dangerous
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: '0'
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
