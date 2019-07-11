@@ -37,6 +37,8 @@ spec:
           #TODO: get TLS working because this is v dangerous
         - name: NODE_TLS_REJECT_UNAUTHORIZED
           value: '0'
+        - name: KAFKA_READ_URL
+          value: 'https://aa5075ebba40811e9a7850aec40aad68-946518783.us-west-2.elb.amazonaws.com/kafka-client-api/read?topic=topic57'
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

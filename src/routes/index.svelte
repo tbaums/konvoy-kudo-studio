@@ -40,28 +40,20 @@
 
 
 <script>
-	// import fetch from '@sapper/server'
-	// async function handleClick(event) {
-	// 	if (process.browser) {
-	// 		// fetch('https://aed1ccf59a30411e9bf1c0aff5ab231b-1169908847.us-west-2.elb.amazonaws.com/svelte/blog')
-	// 		await fetch('https://aed1ccf59a30411e9bf1c0aff5ab231b-1169908847.us-west-2.elb.amazonaws.com/kafka-client-api/read?topic=topic56')
-	// 			.then(res => {
-	// 				console.log(res.text())
-	// 			})
-	// 			.catch(error => console.error(error));
-	// 	}
-	// 	return "Fetching"
-	// }
+	let messages = '';
 
-	let xhr = new XMLHttpRequest()
-	xhr.responseType = 'text';
-	$: data = xhr.response;
-
-	async function handleClick(event) {
-		console.log('got here - 1')
+	// Prevennts an error when Svelte does SSR.
+	if (process.browser) {
 		let xhr = new XMLHttpRequest()
+	}
+	
+	async function handleClick(event) {
+		let xhr = new XMLHttpRequest()
+		xhr.responseType = 'text';
+		console.log('got here - 1')
 		console.log('got here - 2')
-		xhr.open("GET", 'https://aed1ccf59a30411e9bf1c0aff5ab231b-1169908847.us-west-2.elb.amazonaws.com/kafka-client-api/read?topic=topic56')
+		// Change this to ENV variable with const x = process.env.X;
+		xhr.open("GET", 'https://aa5075ebba40811e9a7850aec40aad68-946518783.us-west-2.elb.amazonaws.com/kafka-client-api/read?topic=topic56')
 		console.log('got here - 3')
 		xhr.timeout = Infinity;
 		console.log('got here - 4')
@@ -79,6 +71,7 @@
 			console.log(event)
 			console.log(event.loaded)
 			console.log(xhr.response)
+			messages = xhr.response
 		};
 		console.log('got here - 5')
 		xhr.send()
@@ -93,5 +86,11 @@
 <button on:click={handleClick}>
 	Click me to start fetch
 </button>
+
+<div id="hero">
+	<div id="map" width=40%>
+		{messages}
+	</div>
+</div>
 
 { @debug }
