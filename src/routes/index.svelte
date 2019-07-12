@@ -13,14 +13,24 @@
 		margin: 0 0 0.5em 0;
 	}
 
-	figure {
-		margin: 0 0 1em 0;
+	.actor {
+		color: red;
+		position: absolute;
 	}
 
-	img {
-		width: 100%;
-		max-width: 400px;
-		margin: 0 0 1em 0;
+	#header {
+		color: darkblue;
+	}
+
+	#map {
+		width: 60%;
+		height: 30em;
+		border: 1px solid darkblue;
+		position: relative;
+	}
+
+	#map > p {
+		margin: 0;
 	}
 
 	p {
@@ -40,42 +50,65 @@
 
 
 <script>
-	let messages = '';
+	let messages = ''
+	let data = []
+	let prev_messages = ''
+	let new_messages = ''
+	let x = 0
+	let y = 0
 
 	// Prevennts an error when Svelte does SSR.
 	if (process.browser) {
 		let xhr = new XMLHttpRequest()
 	}
-	
+
 	async function handleClick(event) {
 		let xhr = new XMLHttpRequest()
 		xhr.responseType = 'text';
-		console.log('got here - 1')
-		console.log('got here - 2')
 		// Change this to ENV variable with const x = process.env.X;
-		xhr.open("GET", 'https://aa5075ebba40811e9a7850aec40aad68-946518783.us-west-2.elb.amazonaws.com/kafka-client-api/read?topic=topic56')
-		console.log('got here - 3')
+		xhr.open("GET", 'https://ad51b5465a4a011e987c20aaf9c2019a-392664409.us-west-2.elb.amazonaws.com/kafka-client-api/read?topic=topic2-2')
 		xhr.timeout = Infinity;
-		console.log('got here - 4')
 		xhr.onloadstart = function () {
 			console.log("Download underway");
-			console.log(xhr.response)
 		};
-		console.log("passed onloadstart")
-		xhr.onprogress = function (event) { // triggers periodically
-			// event.loaded - how many bytes downloaded
-			// event.lengthComputable = true if the server sent Content-Length header
-			// event.total - total number of bytes (if lengthComputable)
-			// console.log(`Received ${event.loaded} of ${event.total}`);
-			console.log('inside onprogress')
-			console.log(event)
-			console.log(event.loaded)
-			console.log(xhr.response)
-			messages = xhr.response
+		xhr.onprogress = function (event) {
+			let response = xhr.response
+			// trim the last message's trailing '::::' and split on '::::'
+			new_messages = response.slice(prev_messages.length, response.length - 4).split('::::')
+			prev_messages = response
+			console.log('new_msgs')
+			console.log(new_messages)
+			data.push(new_messages)
+			// set data = data to trigger view update
+			data = data
+			// set x and y coords
+			console.log('data.slice(-1)')
+			console.log(data.slice(-1))
+
+			let data_point_array = data.slice(-1)
+
+			//handle multiple data points sent in a single update
+			if (data_point_array[data_point_array.length -1].length > 1) {
+				data_point_array = data.slice(-1).pop()
+				console.log('data_point_array')
+				console.log(data_point_array)
+			} else {
+				data_point_array = data.slice(-1)
+			}
+			
+			let data_point = data_point_array[data_point_array.length - 1]
+			console.log('data_point: ')
+			console.log(data_point)
+			data_point = JSON.parse(data_point)
+
+			console.log(data_point)
+
+			x = data_point.x
+			y = data_point.y
+			console.log(x)
+			console.log(y)
 		};
-		console.log('got here - 5')
 		xhr.send()
-		console.log('got here - 6')
 		xhr.onload = function () {
 			console.log(xhr.response)
 		}
@@ -83,14 +116,22 @@
 
 </script>
 
+
+
+<div id="header">
+	<h1>Factory Status</h1>
+</div>
+
+
+<div id="hero">
+	<div id="map">
+		<p class='actor' style="left: {x}%; bottom: {y}%;">A</p>
+	</div>
+</div>
+
+
 <button on:click={handleClick}>
 	Click me to start fetch
 </button>
 
-<div id="hero">
-	<div id="map" width=40%>
-		{messages}
-	</div>
-</div>
-
-{ @debug }
+<p>{data}</p>
