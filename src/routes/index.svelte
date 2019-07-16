@@ -78,43 +78,41 @@
 
 	function process_map_data(data_point_array) {
 		let data_point;
-		console.log('got here')
 		//handle multiple data points sent in a single update
-		//TODO: parse each data point in multi data point update
 		if (data_point_array[data_point_array.length - 1].length > 1) {
 			data_point_array = data.slice(-1)
-			console.log("data_point_array is: ")
-			console.log(data_point_array)
+			//console.log("data_point_array is: ")
+			//console.log(data_point_array)
 			data_point_array.forEach(function(item, index) {
 				item.forEach(function(sub_item, index) {
-					console.log(sub_item, index);
+					//console.log(sub_item, index);
 					process_data_point(sub_item)
 				})
 			})
 
-			console.log('data_point_array - if')
-			console.log(data_point_array)
+			//console.log('data_point_array - if')
+			//console.log(data_point_array)
 		} else {
 			data_point_array = data.slice(-1)
 			process_data_point(data_point_array)
-			console.log('data_point_array - else')
-			console.log(data_point_array)
+			//console.log('data_point_array - else')
+			//console.log(data_point_array)
 		}
 
 		function process_data_point(data_point) {
 			// let data_point = data_point_array[data_point_array.length - 1]
-			console.log('data_point: ')
-			console.log(data_point)
+			//console.log('data_point: ')
+			//console.log(data_point)
 			try {
 				data_point = JSON.parse(data_point)
 			} 
 			catch (error) {
-				console.error(error)
+				//console.error(error)
 				return 
 			}
 
-			console.log("parsed data_point")
-			console.log(data_point)
+			//console.log("parsed data_point")
+			//console.log(data_point)
 	
 			let actor = data_point.actor
 			if (data_point.x <= 0) {
@@ -132,9 +130,9 @@
 			} else {
 				y = data_point.y
 			}
-			console.log(x)
-			console.log(y)
-			console.log(actor)
+			//console.log(x)
+			//console.log(y)
+			//console.log(actor)
 	
 			$map.set(actor, { 'x': x, 'y': y })
 		}
@@ -149,15 +147,15 @@
 		xhr.open("GET", 'https://aa88ee6c922d84faba50b571b841e45d-593314138.us-west-2.elb.amazonaws.com/kafka-client-api/read?topic=actors')
 		xhr.timeout = Infinity;
 		xhr.onloadstart = function () {
-			console.log("Download underway");
+			//console.log("Download underway");
 		};
 		xhr.onprogress = function (event) {
 			let response = xhr.response
 			// trim the last message's trailing '::::' and split on '::::'
 			new_messages = response.slice(prev_messages.length, response.length - 4).split('::::')
 			prev_messages = response
-			console.log('new_msgs')
-			console.log(new_messages)
+			//console.log('new_msgs')
+			//console.log(new_messages)
 			data.push(new_messages)
 			// set data = data to trigger view update, keeping only last 100 messages in order to prevent browser from getting bogged down.
 			if (data.length >= 100) {
@@ -166,8 +164,8 @@
 				data = data
 			}
 			// set x and y coords
-			console.log('data.slice(-1)')
-			console.log(data.slice(-1))
+			//console.log('data.slice(-1)')
+			//console.log(data.slice(-1))
 
 			process_map_data(data.slice(-1))
 			// let data_point_array = data.slice(-1)
@@ -180,7 +178,7 @@
 		xhr.send()
 		xhr.onload = function () {
 			//TODO: reconnect on completion
-			console.log(xhr.response)
+			//console.log(xhr.response)
 
 		}
 	}

@@ -80,4 +80,4 @@ if __name__ == "__main__":
 
         print("*****POST to ",response.url)
         print(response.text)
-        time.sleep(.5)
+        time.sleep(1)
