@@ -76,6 +76,70 @@
 		return arr
 	}
 
+	function process_map_data(data_point_array) {
+		let data_point;
+		console.log('got here')
+		//handle multiple data points sent in a single update
+		//TODO: parse each data point in multi data point update
+		if (data_point_array[data_point_array.length - 1].length > 1) {
+			data_point_array = data.slice(-1)
+			console.log("data_point_array is: ")
+			console.log(data_point_array)
+			data_point_array.forEach(function(item, index) {
+				item.forEach(function(sub_item, index) {
+					console.log(sub_item, index);
+					process_data_point(sub_item)
+				})
+			})
+
+			console.log('data_point_array - if')
+			console.log(data_point_array)
+		} else {
+			data_point_array = data.slice(-1)
+			process_data_point(data_point_array)
+			console.log('data_point_array - else')
+			console.log(data_point_array)
+		}
+
+		function process_data_point(data_point) {
+			// let data_point = data_point_array[data_point_array.length - 1]
+			console.log('data_point: ')
+			console.log(data_point)
+			try {
+				data_point = JSON.parse(data_point)
+			} 
+			catch (error) {
+				console.error(error)
+				return 
+			}
+
+			console.log("parsed data_point")
+			console.log(data_point)
+	
+			let actor = data_point.actor
+			if (data_point.x <= 0) {
+				x = 0
+			} else if (data_point.x >= 90) {
+				x = 90
+			} else {
+				x = data_point.x
+			}
+	
+			if (data_point.y <= 5) {
+				y = 5
+			} else if (data_point.y >= 95) {
+				y = 95
+			} else {
+				y = data_point.y
+			}
+			console.log(x)
+			console.log(y)
+			console.log(actor)
+	
+			$map.set(actor, { 'x': x, 'y': y })
+		}
+	}
+
 
 
 	async function fetch_map(event) {
@@ -95,65 +159,29 @@
 			console.log('new_msgs')
 			console.log(new_messages)
 			data.push(new_messages)
-			// set data = data to trigger view update
-			data = data
+			// set data = data to trigger view update, keeping only last 1000 messages in order to prevent browser from getting bogged down.
+			if (data.length >= 1000) {
+				data = data.splice(-1000, data.length)
+			} else {
+				data = data
+			}
 			// set x and y coords
 			console.log('data.slice(-1)')
 			console.log(data.slice(-1))
 
-			let data_point_array = data.slice(-1)
+			process_map_data(data.slice(-1))
+			// let data_point_array = data.slice(-1)
 
-			//handle multiple data points sent in a single update
-			if (data_point_array[data_point_array.length - 1].length > 1) {
-				data_point_array = data.slice(-1).pop()
-				console.log('data_point_array')
-				console.log(data_point_array)
-			} else {
-				data_point_array = data.slice(-1)
-			}
-
-			let data_point = data_point_array[data_point_array.length - 1]
-			console.log('data_point: ')
-			console.log(data_point)
-			data_point = JSON.parse(data_point)
-
-			console.log(data_point)
-
-			let actor = data_point.actor 
-			if (data_point.x <= 0) {
-				x = 0
-			} else if (data_point.x >= 90) {
-				x = 90
-			} else {
-				x = data_point.x
-			}
-
-			if (data_point.y <= 5) {
-				y = 5
-			} else if (data_point.y >= 95) {
-				y = 95
-			} else {
-				y = data_point.y
-			}
-			console.log(x)
-			console.log(y)
-			console.log(actor)
-
-			$map.set(actor, { 'x': x, 'y': y })
 
 			//call gen_actor_list to update list of actors
 			//TODO: confirm if this step is necessary
 			actor_list = gen_actor_list()
-			console.log(actor_list)
-			console.log(gen_actor_list())
-			console.log($map.get(actor))
-
 		};
 		xhr.send()
 		xhr.onload = function () {
 			//TODO: reconnect on completion
 			console.log(xhr.response)
-			
+
 		}
 	}
 

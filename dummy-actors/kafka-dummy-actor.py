@@ -60,12 +60,8 @@ if __name__ == "__main__":
         y = str(int(y) + random.randint(-1, 1))
         # get only the 5 unique digits at the end of the pod name
         actor = socket.gethostname()[-5:-1]
-        # payload = {"payload": {"actor": str(actor), "x": x, "y": y}}
         url = "http://aa88ee6c922d84faba50b571b841e45d-593314138.us-west-2.elb.amazonaws.com/kafka-client-api/write"
 
-        # http://aa88ee6c922d84faba50b571b841e45d-593314138.us-west-2.elb.amazonaws.com/kafka-client-api/write?topic=actors&payload={"actor":"actor2", "x": "80", "y":"48"}&repetitions=100
-
-        # querystring = {"topic":"actors","payload":"{'actor':'actor2', 'x': '80', 'y':'48'}","repetitions":"100"}
         querystring = {"topic":"actors","payload": json.dumps({'actor': actor, 'x': x, 'y': y}),"repetitions":"1"}
         print(querystring)
         headers = {
@@ -76,7 +72,6 @@ if __name__ == "__main__":
             'Host': "aa88ee6c922d84faba50b571b841e45d-593314138.us-west-2.elb.amazonaws.com",
             'accept-encoding': "gzip, deflate",
             'content-length': "",
-            # 'referer': "http://aa88ee6c922d84faba50b571b841e45d-593314138.us-west-2.elb.amazonaws.com/kafka-client-api/write?topic=actors&payload=%7B%22actor%22:%22{actor}%22,%20%22x%22:%20%22{x}%22,%20%22y%22:%22{y}%22%7D&repetitions=1",
             'Connection': "keep-alive",
             'cache-control': "no-cache"
             }
@@ -85,16 +80,4 @@ if __name__ == "__main__":
 
         print("*****POST to ",response.url)
         print(response.text)
-        # r = requests.post(
-        #     "http://aa88ee6c922d84faba50b571b841e45d-593314138.us-west-2.elb.amazonaws.com/kafka-client-api/write",
-        #     params={
-        #         "topic": "actors",
-        #         "payload": {"actor": str(actor), "x": x, "y": y}'',
-        #         "repetitions": "1",
-        #     },
-        #     verify=False,
-        # )
-        # print(r.url)
-        # requests.post("http://aa88ee6c922d84faba50b571b841e45d-593314138.us-west-2.elb.amazonaws.com/kafka-client-api/write?topic=actors&payload={'actor':{actor}, 'x': {x}, 'y':{y}}&repetitions=1", verify=False)
-        # write_to_kafka("actors", {'actor':  str(actor),'x': x, 'y': y}, 1)
         time.sleep(.5)
