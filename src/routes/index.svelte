@@ -159,9 +159,9 @@
 			console.log('new_msgs')
 			console.log(new_messages)
 			data.push(new_messages)
-			// set data = data to trigger view update, keeping only last 1000 messages in order to prevent browser from getting bogged down.
-			if (data.length >= 1000) {
-				data = data.splice(-1000, data.length)
+			// set data = data to trigger view update, keeping only last 100 messages in order to prevent browser from getting bogged down.
+			if (data.length >= 100) {
+				data = data.splice(-100, data.length)
 			} else {
 				data = data
 			}
