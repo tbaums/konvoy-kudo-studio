@@ -165,4 +165,3 @@
 <button on:click={fetch_map}>
 	Click me to start fetch
 </button>
-
