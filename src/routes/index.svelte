@@ -120,8 +120,21 @@
 			console.log(data_point)
 
 			let actor = data_point.actor 
-			x = data_point.x
-			y = data_point.y
+			if (data_point.x <= 0) {
+				x = 0
+			} else if (data_point.x >= 90) {
+				x = 90
+			} else {
+				x = data_point.x
+			}
+
+			if (data_point.y <= 5) {
+				y = 5
+			} else if (data_point.y >= 95) {
+				y = 95
+			} else {
+				y = data_point.y
+			}
 			console.log(x)
 			console.log(y)
 			console.log(actor)
@@ -156,7 +169,7 @@
 <div id="hero">
 	<div id="map">
 		{#each actor_list as actor}
-			<p class='actor' id={actor} style="left: {$map.get(actor)['x']}%; bottom: {$map.get(actor)['y']}%;">{actor}</p>
+			<p class='actor' id={actor} style="left: {$map.get(actor)['x']}%; bottom: {$map.get(actor)['y']}%;">🤖{actor}</p>
 		{/each}
 	</div>
 </div>
