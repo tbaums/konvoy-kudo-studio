@@ -1,4 +1,4 @@
 
 <svelte:head>
-	<title>Sapper project template</title>
+	<title>Dashboard</title>
 </svelte:head>

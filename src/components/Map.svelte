@@ -1,6 +1,4 @@
-<style>
-        /* TODO: Implement CSS grid */
-    
+<style>    
         h1 {
             font-size: 2.8em;
             text-transform: uppercase;
@@ -14,14 +12,12 @@
             position: absolute;
         }
     
-        #header {
-            color: darkblue;
-        }
-    
         #map {
-            width: 50%;
+            grid-column: 1;
+            grid-row: 2;
+            width: 100%;
             height: 30em;
-            border: 3px solid darkblue;
+            border: 1px solid darkblue;
             position: relative;
         }
     
@@ -43,9 +39,6 @@
         }
     </style>
     
-    <svelte:head>
-        <title>Sapper project template</title>
-    </svelte:head>
     
     
     <script>
@@ -68,11 +61,12 @@
     
         //need to create an array of actors because Svelte can't iterate over Map objects 
         function gen_actor_list() {
-            let arr = [];
+            // let arr = [];
+            $actors = []
             for (let item of $map.keys()) {
-                arr.push(item)
+                $actors.push(item)
             }
-            return arr
+            return $actors
         }
     
         function process_map_data(data_point_array) {
@@ -182,19 +176,15 @@
     </script>
     
     
-    
-    <div id="header">
-        <h1>Factory Status</h1>
-    </div>
+
     
     
-    <div id="hero">
+    
         <div id="map">
             {#each actor_list as actor}
                 <p class='actor' id={actor} style="left: {$map.get(actor)['x']}%; bottom: {$map.get(actor)['y']}%;">🤖{actor}</p>
             {/each}
         </div>
-    </div>
     
     
     <button on:click={fetch_map}>
