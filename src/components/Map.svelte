@@ -19,7 +19,7 @@
         }
     
         #map {
-            width: 60%;
+            width: 50%;
             height: 30em;
             border: 3px solid darkblue;
             position: relative;
