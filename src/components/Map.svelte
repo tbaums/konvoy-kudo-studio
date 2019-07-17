@@ -52,22 +52,25 @@
     let x, y
     $: actor_list = gen_actor_list()
 
-    
-    
+
+
     let messages = ''
     let data = []
-    
+
     let prev_messages = ''
     let new_messages = ''
-    
-    
+
+    let current_host;
+
+
     // Prevennts an error when Svelte does SSR.
     if (process.browser) {
         let xhr = new XMLHttpRequest()
-        let current_path = window.location.host.toString();
+        current_host = window.location.host.toString();
+        console.log('current host is: ', current_host)
     }
 
-    //need to create an array of actors because Svelte can't iterate over Map objects 
+    //need to create an array of actors because Svelte can't iterate over Map objects
     function gen_actor_list() {
         // let arr = [];
         $actors = []
@@ -144,8 +147,9 @@
     async function fetch_map(event) {
         let xhr = new XMLHttpRequest()
         xhr.responseType = 'text';
-        // Change this to ENV variable with const x = process.env.X;
-        xhr.open("GET", 'https://a56a94e80947142019796ff050b0605a-515129060.us-west-2.elb.amazonaws.com/kafka-client-api/read?topic=actors')
+        let url = 'https://' + current_host + '/kafka-client-api/read?topic=actors'
+        console.log("url is: ", url)
+        xhr.open("GET", url)
         xhr.timeout = Infinity;
         xhr.onloadstart = function () {
             //console.log("Download underway");
@@ -182,9 +186,6 @@
     }
 
 </script>
-
-
-<svelte:window on:popstate={() => currentPath = window.location.pathname} />
 
 
 <div id="map">
