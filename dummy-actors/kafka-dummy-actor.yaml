@@ -34,8 +34,8 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         env:
-        - name: BROKER_SERVICE
-          value: kafka-kafka-0.kafka-svc:9092
+        - name: KAFKA_API_URL
+          value: "http://a56a94e80947142019796ff050b0605a-515129060.us-west-2.elb.amazonaws.com/kafka-client-api/write"
         - name: PYTHONUNBUFFERED
           value: "1"
       dnsPolicy: ClusterFirst

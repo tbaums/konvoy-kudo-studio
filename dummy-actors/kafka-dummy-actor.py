@@ -59,9 +59,9 @@ if __name__ == "__main__":
         x = str(int(x) + random.randint(-1, 1))
         y = str(int(y) + random.randint(-1, 1))
         # get only the 5 unique digits at the end of the pod name
-        actor = socket.gethostname()[-5:-1]
+        actor = socket.gethostname()[-5:len(socket.gethostname())]
         # TODO: move this to env var passed in YAML. Also, use an internal cluster IP rather than going to the public internet and back.
-        url = "http://a56a94e80947142019796ff050b0605a-515129060.us-west-2.elb.amazonaws.com/kafka-client-api/write"
+        url = os.environ['KAFKA_API_URL']
 
         querystring = {"topic":"actors","payload": json.dumps({'actor': actor, 'x': x, 'y': y}),"repetitions":"1"}
         print(querystring)
