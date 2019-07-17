@@ -60,7 +60,8 @@ if __name__ == "__main__":
         y = str(int(y) + random.randint(-1, 1))
         # get only the 5 unique digits at the end of the pod name
         actor = socket.gethostname()[-5:-1]
-        url = "http://aa88ee6c922d84faba50b571b841e45d-593314138.us-west-2.elb.amazonaws.com/kafka-client-api/write"
+        # TODO: move this to env var passed in YAML. Also, use an internal cluster IP rather than going to the public internet and back.
+        url = "http://a56a94e80947142019796ff050b0605a-515129060.us-west-2.elb.amazonaws.com/kafka-client-api/write"
 
         querystring = {"topic":"actors","payload": json.dumps({'actor': actor, 'x': x, 'y': y}),"repetitions":"1"}
         print(querystring)
@@ -69,7 +70,7 @@ if __name__ == "__main__":
             'Accept': "*/*",
             'Cache-Control': "no-cache",
             'Postman-Token': "4fcd9769-4416-4e67-80df-6023108d452f,b6563b7c-4354-4921-a8e4-e24ea0c6c4fc",
-            'Host': "aa88ee6c922d84faba50b571b841e45d-593314138.us-west-2.elb.amazonaws.com",
+            'Host': "a56a94e80947142019796ff050b0605a-515129060.us-west-2.elb.amazonaws.com",
             'accept-encoding': "gzip, deflate",
             'content-length': "",
             'Connection': "keep-alive",
