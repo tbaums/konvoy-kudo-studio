@@ -1,5 +1,6 @@
 <script>
 	import Nav from '../components/Nav.svelte';
+	import Map from '../components/Map.svelte';
 
 	export let segment;
 </script>
@@ -18,5 +19,6 @@
 <Nav {segment}/>
 
 <main>
+	<Map />
 	<slot></slot>
 </main>
