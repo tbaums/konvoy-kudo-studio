@@ -3,6 +3,7 @@
 		position: relative;
 		max-width: 56em;
 		background-color: white;
+		color: rgba(83,86,90,1);
 		padding: 2em;
 		margin: 0 auto;
 		box-sizing: border-box;
@@ -36,9 +37,6 @@
 
 <script>
 	import Nav from '../components/Nav.svelte';
-	import Map from '../components/Map.svelte';
-	import ActorStatus from '../components/ActorStatus.svelte';
-
 	export let segment;
 </script>
 
@@ -49,10 +47,5 @@
 
 
 <main>
-	<div id="header">
-		<h1>Factory Status</h1>
-	</div>
-	<Map />
-	<ActorStatus />
 	<slot></slot>
 </main>

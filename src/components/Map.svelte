@@ -5,10 +5,11 @@
         font-weight: 700;
         margin: 0 0 0.5em 0;
         text-align: center;
+        color: rgba(51,0,114,1)
     }
 
     .actor {
-        color: red;
+        color: rgba(158, 36, 123, 1);
         position: absolute;
     }
 
@@ -16,7 +17,8 @@
         grid-column: 1;
         grid-row: 2;
         width: 100%;
-        height: 75vh;
+        /* VH of 72 seems to align well with 7 actors */
+        height: 72vh;
         position: relative;
         border: 1px solid #aaa;
 		border-radius: 2px;
