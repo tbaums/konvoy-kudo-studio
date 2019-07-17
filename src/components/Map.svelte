@@ -16,12 +16,11 @@
         grid-column: 1;
         grid-row: 2;
         width: 100%;
-        height: 30em;
+        height: 75vh;
         position: relative;
         border: 1px solid #aaa;
 		border-radius: 2px;
 		box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-		/* padding: 1em; */
     }
 
     #map>p {
