@@ -189,5 +189,5 @@
 </div>
 
 <button on:click={fetch_map}>
-        Click me to start fetch
+        Click me to start data stream
 </button>
