@@ -15,8 +15,8 @@ Tested with Konvoy v0.4.0 and Kudo v0.3.2 on AWS.
 
 ### Deploy Kafka Client API, Svelte front-end, and Dummy Actors
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/kudo-kafka-etl/master/kudo-kafka-app/kafka-client-api.yaml`
-1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/svelte-client/master/svelte-client.yaml`
-1. `curl -O https://raw.githubusercontent.com/tbaums/svelte-client/master/dummy-actors/kafka-dummy-actor.yaml`
+1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/svelte-client.yaml`
+1. `curl -O https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/dummy-actors/kafka-dummy-actor.yaml`
 1. Edit `kafka-dummy-actor.yaml` and set `KAFKA_API_URL` to your AWS ELB.
 1. `kubectl apply -f kafka-dummy-actor.yaml`
 
