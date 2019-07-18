@@ -2,9 +2,10 @@
     #actor_status {
         grid-column: 2 / 2;
         grid-row: 2;
-        overflow: hidden;
+        overflow: scroll;
         padding: 0;
         margin: 0;
+        height: 72vh;
     }
 
     #actor_status ul {
@@ -59,6 +60,23 @@
 
 <script>
     import { actors, map } from '../routes/stores.js'
+    // For local testing when no Kafka or API server avaiable
+    // $map.set('actor1', {"x": "12", "y":"12"})
+    // $actors.push('actor1')
+    // $map.set('actor2', {"x": "12", "y":"12"})
+    // $actors.push('actor2')
+    // $map.set('actor3', {"x": "12", "y":"12"})
+    // $actors.push('actor3')
+    // $map.set('actor4', {"x": "12", "y":"12"})
+    // $actors.push('actor4')
+    // $map.set('actor5', {"x": "12", "y":"12"})
+    // $actors.push('actor5')
+    // $map.set('actor6', {"x": "12", "y":"12"})
+    // $actors.push('actor6')
+    // $map.set('actor7', {"x": "12", "y":"12"})
+    // $actors.push('actor7')
+    // $map.set('actor8', {"x": "12", "y":"12"})
+    // $actors.push('actor8')
 </script>
 
 <div id="actor_status">

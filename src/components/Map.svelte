@@ -1,13 +1,4 @@
 <style>
-    h1 {
-        font-size: 2.8em;
-        text-transform: uppercase;
-        font-weight: 700;
-        margin: 0 0 0.5em 0;
-        text-align: center;
-        color: rgba(51,0,114,1)
-    }
-
     .actor {
         color: rgba(158, 36, 123, 1);
         position: absolute;

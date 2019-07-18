@@ -4,11 +4,17 @@
 </script>
 
 <style>
-    #header {
-        color: darkblue;
+    .header {
         grid-column: 1 / -1;
-        grid-row: 1;
+    }
+    
+    h1 {
+        font-size: 2.8em;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin: 0 0 0.5em 0;
         text-align: center;
+        color: rgba(51, 0, 114, 1)
     }
 
     #actor_status {
@@ -21,12 +27,11 @@
         grid-row: 2;
         width: 100%;
         height: 30em;
-        border: 1px solid darkblue;
         position: relative;
     }
 </style>
 
-<div id="header">
+<div class="header">
     <h1>Factory Status</h1>
 </div>
 <Map />

@@ -53,7 +53,7 @@
 	<ul>
 		<li><a class='{segment === undefined ? "selected" : ""}' href='.'>home</a></li>
 		<li><a class='{segment === "about" ? "selected" : ""}' href='about'>about</a></li>
-		<li><a class='{segment === "factory" ? "selected" : ""}' href='factory'>factory</a></li>
+		<li><a class='{segment === "factory" ? "selected" : ""}' href='factory'>manufacturing & IoT</a></li>
 
 
 		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
