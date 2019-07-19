@@ -70,7 +70,7 @@ if __name__ == "__main__":
             'Accept': "*/*",
             'Cache-Control': "no-cache",
             'Postman-Token': "4fcd9769-4416-4e67-80df-6023108d452f,b6563b7c-4354-4921-a8e4-e24ea0c6c4fc",
-            'Host': "a56a94e80947142019796ff050b0605a-515129060.us-west-2.elb.amazonaws.com",
+            # 'Host': "a56a94e80947142019796ff050b0605a-515129060.us-west-2.elb.amazonaws.com",
             'accept-encoding': "gzip, deflate",
             'content-length': "",
             'Connection': "keep-alive",

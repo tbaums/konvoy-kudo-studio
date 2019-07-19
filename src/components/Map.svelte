@@ -3,34 +3,34 @@
         color: rgba(158, 36, 123, 1);
         position: absolute;
     }
-
+    
     #map {
         grid-column: 1;
-        grid-row: 2;
+        /* grid-row: 3; */
         width: 100%;
         /* VH of 72 seems to align well with 7 actors */
         height: 72vh;
         position: relative;
         border: 1px solid #aaa;
-		border-radius: 2px;
-		box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        border-radius: 2px;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     }
-
+    
     #map>p {
         margin: 0;
         border: 0;
         padding: 0;
         line-height: 0;
     }
-
+    
     button {
-        grid-row: 3;
+        grid-row: 4;
     }
-
+    
     p {
         margin: 1em auto;
     }
-
+    
     @media (min-width: 480px) {
         h1 {
             font-size: 4em;
@@ -41,7 +41,10 @@
 
 
 <script>
-    import { actors, map } from '../routes/stores.js'
+    import {
+        actors,
+        map
+    } from '../routes/stores.js'
     let x, y
     $: actor_list = gen_actor_list()
 
@@ -78,10 +81,10 @@
         //handle multiple data points sent in a single update
         if (data_point_array[data_point_array.length - 1].length > 1) {
             data_point_array = data.slice(-1)
-            //console.log("data_point_array is: ")
-            //console.log(data_point_array)
-            data_point_array.forEach(function (item, index) {
-                item.forEach(function (sub_item, index) {
+                //console.log("data_point_array is: ")
+                //console.log(data_point_array)
+            data_point_array.forEach(function(item, index) {
+                item.forEach(function(sub_item, index) {
                     //console.log(sub_item, index);
                     process_data_point(sub_item)
                 })
@@ -92,8 +95,8 @@
         } else {
             data_point_array = data.slice(-1)
             process_data_point(data_point_array)
-            //console.log('data_point_array - else')
-            //console.log(data_point_array)
+                //console.log('data_point_array - else')
+                //console.log(data_point_array)
         }
 
         function process_data_point(data_point) {
@@ -102,8 +105,7 @@
             //console.log(data_point)
             try {
                 data_point = JSON.parse(data_point)
-            }
-            catch (error) {
+            } catch (error) {
                 //console.error(error)
                 return
             }
@@ -131,7 +133,10 @@
             //console.log(y)
             //console.log(actor)
 
-            $map.set(actor, { 'x': x, 'y': y })
+            $map.set(actor, {
+                'x': x,
+                'y': y
+            })
         }
     }
 
@@ -144,18 +149,18 @@
         console.log("url is: ", url)
         xhr.open("GET", url)
         xhr.timeout = Infinity;
-        xhr.onloadstart = function () {
+        xhr.onloadstart = function() {
             //console.log("Download underway");
         };
-        xhr.onprogress = function (event) {
+        xhr.onprogress = function(event) {
             let response = xhr.response
-            // trim the last message's trailing '::::' and split on '::::'
+                // trim the last message's trailing '::::' and split on '::::'
             new_messages = response.slice(prev_messages.length, response.length - 4).split('::::')
             prev_messages = response
-            //console.log('new_msgs')
-            //console.log(new_messages)
+                //console.log('new_msgs')
+                //console.log(new_messages)
             data.push(new_messages)
-            // set data = data to trigger view update, keeping only last 100 messages in order to prevent browser from getting bogged down.
+                // set data = data to trigger view update, keeping only last 100 messages in order to prevent browser from getting bogged down.
             if (data.length >= 100) {
                 data = data.splice(-100, data.length)
             } else {
@@ -166,24 +171,23 @@
             //console.log(data.slice(-1))
 
             process_map_data(data.slice(-1))
-            // let data_point_array = data.slice(-1)
-            //call gen_actor_list to update list of actors
-            //TODO: confirm if this step is necessary, given it's defined as reactive above-- $: actor_list = gen_actor_list()
+                // let data_point_array = data.slice(-1)
+                //call gen_actor_list to update list of actors
+                //TODO: confirm if this step is necessary, given it's defined as reactive above-- $: actor_list = gen_actor_list()
             actor_list = gen_actor_list()
         };
         xhr.send()
-        xhr.onload = function () {
+        xhr.onload = function() {
             //TODO: reconnect on completion
             //console.log(xhr.response)
         }
     }
-
 </script>
 
 
 <div id="map">
     {#each actor_list as actor}
-        <p class='actor' id={actor} style="left: {$map.get(actor)['x']}%; bottom: {$map.get(actor)['y']}%;">🤖{actor}</p>
+    <p class='actor' id={actor} style="left: {$map.get(actor)['x']}%; bottom: {$map.get(actor)['y']}%;">🤖{actor}</p>
     {/each}
 
 </div>

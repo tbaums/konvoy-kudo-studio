@@ -35,7 +35,7 @@ spec:
         terminationMessagePolicy: File
         env:
         - name: KAFKA_API_URL
-          value: "http://a56a94e80947142019796ff050b0605a-515129060.us-west-2.elb.amazonaws.com/kafka-client-api/write"
+          value: "http://afa5d0725585343fda3a2a00f23a54c9-21987657.us-west-2.elb.amazonaws.com/kafka-client-api/write"
         - name: PYTHONUNBUFFERED
           value: "1"
       dnsPolicy: ClusterFirst
