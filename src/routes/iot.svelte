@@ -137,18 +137,19 @@
     <h1>Factory Status</h1>
 </div>
 <span style="position: relative; grid-row: 2; grid-column: 1 /2;">
-<button id="architecture__collapse__button" on:click={handle_collapse_click} transition:fade>
+<button id="architecture__collapse__button" on:click={handle_collapse_click} in:fade="{{duration: 200}}" out:fade="{{duration: 0}}">
             {arch_collapsed ? "+" : "-"}
 </button>
 </span> {#if !arch_collapsed}
-<div id="architecture__diagram" transition:fade="{{duration: 200}}">
+
+<div id="architecture__diagram" in:fade="{{duration: 200}}" out:fade="{{duration: 0}}">
     <img {src} alt="architecture diagram">
 </div>
 {:else}
-<div id="map" in:fade="{{delay: 250}}">
+<div id="map" in:fade="{{duration: 200}}" out:fade="{{duration: 0}}">
     <Map />
 </div>
-<div id="actor_status" in:fade="{{delay: 250}}">
+<div id="actor_status" in:fade="{{duration: 200}}" out:fade="{{duration: 0}}">
     <ActorStatus />
 </div>
 {/if}
