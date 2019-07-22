@@ -54,5 +54,6 @@
         <li><a class='{segment === undefined ? "selected" : ""}' href='.'>home</a></li>
         <li><a class='{segment === "about" ? "selected" : ""}' href='about'>about</a></li>
         <li><a class='{segment === "iot" ? "selected" : ""}' href='iot'>manufacturing & IoT</a></li>
+        <li><a class='{segment === "user-research" ? "selected" : ""}' href='user-research'>user research</a></li>
     </ul>
 </nav>

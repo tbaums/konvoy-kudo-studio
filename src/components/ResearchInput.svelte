@@ -1,0 +1,55 @@
+<style>
+    div {
+        width: 100%;
+        height: 100%;
+    }
+    
+    img {
+        width: 100%;
+    }
+    
+    h2 {
+        text-align: center;
+    }
+</style>
+
+<script>
+    let src = 'homepage.png'
+    let m = {
+        x: 0,
+        y: 0
+    };
+
+    let current_host;
+
+    // Prevennts an error when Svelte does SSR.
+    if (process.browser) {
+        let xhr = new XMLHttpRequest()
+        current_host = window.location.host.toString();
+        console.log('current host is: ', current_host)
+    }
+
+    function handleMousemove(event) {
+        m.x = event.clientX;
+        m.y = event.clientY;
+        post_cursor_coordinates()
+    }
+
+    async function post_cursor_coordinates() {
+        let xhr = new XMLHttpRequest()
+        let url = 'https://' + current_host + '/kafka-client-api/write?topic=research&payload={"x":"' +
+            m.x +
+            '","y":"' +
+            m.y +
+            '"}&repetitions=1'
+            // console.log("url is: ", url)
+        xhr.open("POST", url)
+        xhr.send()
+    }
+</script>
+
+
+<div on:mousemove={handleMousemove}>
+    <h2>Move mouse around page</h2>
+    <img {src} alt="Mesosphere homepage"> The mouse position is {m.x} x {m.y}
+</div>
