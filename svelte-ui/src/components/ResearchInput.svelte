@@ -35,7 +35,9 @@
         post_cursor_coordinates()
     }
 
-    async function post_cursor_coordinates() {
+    // post_cursor_coordinates remains synchronous in order to preserve the order of POST requests to
+    // the kafka-client-api
+    function post_cursor_coordinates() {
         let xhr = new XMLHttpRequest()
         let url = 'https://' + current_host + '/kafka-client-api/write?topic=research&payload={"x":"' +
             m.x +
