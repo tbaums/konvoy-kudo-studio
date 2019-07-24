@@ -8,7 +8,6 @@ sleep 2
 
 
 kubectl apply -f svelte-client.yaml
-kubectl apply -f svelte-client-ingress.yaml
 
 sleep 15
 kubectl logs -f -l app=svelte-client 
