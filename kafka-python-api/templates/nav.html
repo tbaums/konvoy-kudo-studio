@@ -1,0 +1,130 @@
+
+<script>
+        // document.ready function
+        $(document).ready(function () {
+            // selector has to be . for a class name and # for an ID
+            $('.call').on("click", function (e) {
+                e.preventDefault(); // prevent form from reloading page
+
+                let x = $(this);
+                url = x.attr('url');
+                console.log(x)
+                console.log(url);
+                $.ajax({
+                    'url': url,
+                    'type': 'GET',
+                    'success': function (data) {
+                        console.log("set sent request to:", url)
+                    }
+                })
+            });
+        });
+    </script>
+    <script>
+        //    Polling script to check for color changes
+        setInterval(function () {
+            $.ajax({
+                type: "get",
+                url: "/v0alpha1/get-color",
+                success: function (data) {
+                    // data = '"' + data + '"';
+                    if (!jQuery.isEmptyObject(data)) {
+                        data = JSON.parse(data);
+                        //console.log the response
+                        console.log(data);
+                        console.log(typeof data);
+                        $('.color').css("background-color", data["color"]);
+                        $('div.color').html(data["color"]);
+                    }
+
+                }
+            });
+        }, 1500);
+    </script>
+    <script>
+        // Consume stock ticker
+        // document.ready function
+        $(document).ready(function () {
+            // selector has to be . for a class name and # for an ID
+            $('.stream').on("click", function (e) {
+                e.preventDefault(); // prevent form from reloading page
+                var lastResponseLength = false;
+
+                let x = $(this);
+                url = x.attr('url');
+                // console.log(x)
+                // console.log(url);
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    processData: false,
+                    xhrFields: {
+                        // Getting on progress streaming response
+                        onprogress: function (e) {
+                            var progressResponse;
+                            var response = e.currentTarget.response;
+                            if (lastResponseLength === false) {
+                                progressResponse = response;
+                                lastResponseLength = response.length;
+                            }
+                            else {
+                                progressResponse = response.substring(lastResponseLength);
+                                lastResponseLength = response.length;
+                            }
+                            try {
+                                console.log(progressResponse);
+                                var parsedResponse = JSON.parse(progressResponse);
+                                let timeStamp = moment().format();
+                                let dataPt = { x: timeStamp, y: parsedResponse.value }
+                                console.log("timestamp: ", timeStamp);
+                                if (chart.data.datasets[0].data.length > 100) {
+                                    chart.data.datasets[0].data.push(dataPt);
+                                    chart.data.datasets[0].data = chart.data.datasets[0].data.slice(1, 100);
+                                }
+                                else {
+                                    chart.data.datasets[0].data.push(dataPt);
+                                }
+                                
+                                console.log(chart.data.datasets[0].data);
+                                chart.options.scales.xAxes[0].time.min = moment().subtract(60, 'seconds').format();
+                                chart.update();
+                            }
+                            catch (err) {
+                                console.log(err)
+                            }
+                        }
+                    }
+                });
+            });
+        });
+                        // 'success': function (data) {
+                        //     console.log("set sent request to:", url)
+                        //     if (!jQuery.isEmptyObject(data)) {
+                        //         // data = JSON.parse(data);
+                        //         //console.log the response
+                        //         console.log(data);
+                        //         console.log(typeof data);
+                        //         $('.stocks').html(data);
+                        //     }
+                        // }
+    </script>
+    <nav class="rc-nav">
+        <ul>
+            <li>
+                <a href="javascript:void(0)" class="call" url="/generate-numbers">Generate Numbers</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="call" url="/v0alpha1/set-color/red">Set Color: Red</a>
+                <a href="javascript:void(0)" class="call" url="/v0alpha1/set-color/blue">Set Color: Blue</a>
+                <a href="javascript:void(0)" class="call" url="/v0alpha1/set-color/green">Set Color: Green</a>
+                <a href="javascript:void(0)" class="call" url="/v0alpha1/set-color/purple">Set Color: Purple</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="call" url="/v0alpha1/generate-stocks-stream/10000">Generate Stock
+                    Stream</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="stream" url="/v0alpha1/get-stocks-stream">Consume Stock Firehose</a>
+            </li>
+        </ul>
+    </nav>

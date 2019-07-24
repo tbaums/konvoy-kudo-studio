@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "file": "about.1c82ecf8.css",
+  "sources": [
+    "../../../../../../src/routes/about.svelte"
+  ],
+  "sourcesContent": [
+    "<style>\n    .header {\n        grid-column: 1 / -1;\n        height: 30vh;\n        margin-top: 5em;\n    }\n    \n    .header h1 {\n        font-size: 2.8em;\n        text-transform: uppercase;\n        font-weight: 700;\n        margin: 0 0 0.5em 0;\n        text-align: center;\n        color: rgba(51, 0, 114, 1)\n    }\n    \n    .header h2 {\n        font-size: 1.4em;\n        font-weight: 300;\n        margin: 0 0 0.5em 0;\n        text-align: center;\n    }\n    \n    h3 {\n        padding-top: 1em;\n    }\n</style>\n\n<svelte:head>\n    <title>About</title>\n</svelte:head>\n\n\n<div class=\"header\">\n    <h1>Best-in-class customer experiences demand cloud native</h1>\n    <h2>Enterprise Grade Kubernetes With a Full Cloud Native Ecosystem</h2>\n</div>\n\n\n\n\n<h3>Give every engineer the power to create brilliantly</h3>\n<div class=\"text\">\n    <p>\n        This simple series of demos were created by a team of hobbyist programmers at Mesosphere. Our aim is to demonstrate the incredible end-user experiences that are possible with the latest in cloud native software. Kubernetes, Kafka, Cassandra, Spark, and\n        others are necessary tools to deliver the right data to the right place in the right format at the right time.\n    </p>\n    <p>\n        With automation, even non-experts in these newest tools can deploy and manage complex, distributed software systems.\n    </p>\n    <p>\n        We hope these simple examples spur you and your collaborators to think expansively about what's possible, without massive teams of dedicated staff supporting each of these technologies.\n    </p>\n</div>"
+  ],
+  "names": [],
+  "mappings": "AACI,OAAO,cAAC,CAAC,AACL,WAAW,CAAE,CAAC,CAAC,CAAC,CAAC,EAAE,CACnB,MAAM,CAAE,IAAI,CACZ,UAAU,CAAE,GAAG,AACnB,CAAC,AAED,qBAAO,CAAC,EAAE,cAAC,CAAC,AACR,SAAS,CAAE,KAAK,CAChB,cAAc,CAAE,SAAS,CACzB,WAAW,CAAE,GAAG,CAChB,MAAM,CAAE,CAAC,CAAC,CAAC,CAAC,KAAK,CAAC,CAAC,CACnB,UAAU,CAAE,MAAM,CAClB,KAAK,CAAE,KAAK,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC,CAAC,CAAC,CAAC;IAC9B,CAAC,AAED,qBAAO,CAAC,EAAE,cAAC,CAAC,AACR,SAAS,CAAE,KAAK,CAChB,WAAW,CAAE,GAAG,CAChB,MAAM,CAAE,CAAC,CAAC,CAAC,CAAC,KAAK,CAAC,CAAC,CACnB,UAAU,CAAE,MAAM,AACtB,CAAC,AAED,EAAE,cAAC,CAAC,AACA,WAAW,CAAE,GAAG,AACpB,CAAC"
+}

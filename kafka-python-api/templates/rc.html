@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+ 
+    <div class="color" width=80% height=30px>Here is some text</div>
+    <canvas id="myChart" width="400" height="400"></canvas>
+</div>
+
+<script>
+    let scaleMin = moment();
+    scaleMin = scaleMin.subtract(10, 'seconds').format();
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: ['Stock Prices'],
+            datasets: [{
+                label: 'GE',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [],
+                fill: false,
+                lineTension: 0.1
+            }]
+        },
+        // Configuration options go here
+        options: {
+            animation: false,
+            scales: {
+                xAxes: [{
+                    type: 'time'
+                    , distribution: 'linear'
+                    , time: {
+                        min: scaleMin
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        suggestedMin: 25,
+                        suggestedMax: 75
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+{% endblock %}

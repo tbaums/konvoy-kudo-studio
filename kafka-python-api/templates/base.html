@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon"
+        href="https://github.com/tbaums/kudo-kafka-etl/blob/remote-control/kudo-kafka-app/templates/favicon.png"
+        type="image/png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <title>{% block title %}{% endblock %}</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+
+<body>
+    <div id="nav">
+        {% include 'nav.html' %}
+    </div>
+    <div id="body">{% block content %}{% endblock %}</div>
+</body>
