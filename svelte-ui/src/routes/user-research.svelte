@@ -1,20 +1,3 @@
-<script>
-    import {
-        fade,
-        fly,
-        slide
-    } from 'svelte/transition';
-
-    import ResearchInput from '../components/ResearchInput.svelte';
-    import ResearchOutput from '../components/ResearchOutput.svelte';
-    let src = '2019_07_19-arch-diagram.svg'
-    let arch_collapsed = false
-
-    function handle_collapse_click(e) {
-        arch_collapsed = !arch_collapsed
-    }
-</script>
-
 <style>
     .header {
         grid-column: 1 / -1;
@@ -136,6 +119,22 @@
         width: 1em;
     }
 </style>
+<script>
+    import {
+        fade,
+        fly,
+        slide
+    } from 'svelte/transition';
+
+    import ResearchInput from '../components/ResearchInput.svelte';
+    import ResearchOutput from '../components/ResearchOutput.svelte';
+    let src = '2019_07_19-arch-diagram.svg'
+    let arch_collapsed = false
+
+    function handle_collapse_click(e) {
+        arch_collapsed = !arch_collapsed
+    }
+</script>
 
 <div class="header">
     <h1>Real-time User Research</h1>
