@@ -35,7 +35,7 @@ spec:
         terminationMessagePolicy: File
         env:
         - name: BROKER_SERVICE
-          value: kafka-kafka-0.kafka-svc:9092
+          value: kafka-kafka-0.kafka-svc.default.svc.cluster.local:9093
         - name: PYTHONUNBUFFERED
           value: "1"
       dnsPolicy: ClusterFirst

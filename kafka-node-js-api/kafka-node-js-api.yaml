@@ -1,0 +1,90 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: kafka-node-js-api
+  name: kafka-node-js-api
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: kafka-node-js-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: kafka-node-js-api
+    spec:
+      containers:
+      - image: tbaums/kafka-node-js-api:latest
+        imagePullPolicy: Always
+        name: kafka-node-js-api
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        env:
+          #TODO: get TLS working because this is v dangerous
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: '0'
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 5
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-node-js-api-svc
+spec:
+  selector:
+    app: kafka-node-js-api
+  ports:
+    - port: 3002
+      targetPort: 3002
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: kafka-node-js-api-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /kafka-node-js-api
+        backend:
+          serviceName: kafka-node-js-api-svc
+          servicePort: 3002
+
+# For local development or other purposes
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: svelte-client-np
+# spec:
+#   type: NodePort
+#   selector:
+#     app: svelte-client
+#   ports:
+#     # Which port on the node is the service available through?    
+#     - nodePort: 30303
+#     # Inside the cluster, what port does the service expose?
+#       port: 3000
+#     # Which port do pods selected by this service expose?
+#       targetPort: 3000
+
