@@ -30,10 +30,9 @@ wsServer = new WebSocketServer({
 // WebSocket server
 wsServer.on('request', function(request) {
     var connection = request.accept(null, request.origin)
-    connection.sendUTF("pongo")
     consumer.on('message', function(message) {
         console.log(message);
-        connection.sendUTF(message)
+        connection.sendUTF(JSON.parse(message.value))
     });
 
     // This is the most important callback for us, we'll handle

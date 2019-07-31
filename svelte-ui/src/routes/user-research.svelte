@@ -125,34 +125,40 @@
         fly,
         slide
     } from 'svelte/transition';
-
-    // import io from "socket.io-client";
+    import {
+        dots
+    } from '../routes/stores.js'
 
     import ResearchInput from '../components/ResearchInput.svelte';
     import ResearchOutput from '../components/ResearchOutput.svelte';
     let src = '2019_07_19-arch-diagram.svg'
     let arch_collapsed = false
+    let current_host
 
     function handle_collapse_click(e) {
         arch_collapsed = !arch_collapsed
     }
-    let current_host;
 
 
     // Prevennts an error when Svelte does SSR.
     if (process.browser) {
         current_host = window.location.host.toString();
         console.log('current host is: ', current_host)
-        console.log('current host is', current_host)
         var ws_url = 'wss://' + current_host + '/kafka-node-js-api'
         var ws = new WebSocket(ws_url)
         console.log('ws is', ws)
         ws.onopen = function() {
             console.log('connection opened successfully')
         }
-
+        let list = []
         ws.onmessage = function(event) {
             console.log('message event is', event)
+            let json_data = JSON.parse(event.data)
+            console.log(json_data)
+            list.push(json_data)
+            console.log(list)
+            dots.set(list)
+            console.log($dots)
         }
 
     }
@@ -177,7 +183,5 @@
 <div id="research_output" in:fade="{{duration: 200}}" out:fade="{{duration: 0}}">
     <ResearchOutput />
 </div>
-<!-- <div id="actor_status" in:fade="{{duration: 200}}" out:fade="{{duration: 0}}">
-    <ActorStatus />
-</div> -->
+
 {/if}

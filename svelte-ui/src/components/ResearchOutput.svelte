@@ -1,5 +1,8 @@
 <script>
     let src = 'homepage.png'
+    import {
+        dots
+    } from '../routes/stores.js'
 </script>
 
 <style>
@@ -20,4 +23,9 @@
 <div>
     <h2>Observe user's cursor in real-time</h2>
     <img {src} alt="Mesosphere homepage">
+    <ul>{#each $dots as dot}
+        <li>{dot}</li>
+        { /each }
+    </ul>
+
 </div>
