@@ -76,8 +76,10 @@ if __name__ == "__main__":
             'Connection': "keep-alive",
             'cache-control': "no-cache"
             }
-
-        response = requests.request("POST", url, headers=headers, params=querystring, verify=False)
+        try:
+            response = requests.request("POST", url, headers=headers, params=querystring, verify=False)
+        except Exception as e:
+            print('failed post request with error: ', str(e))
 
         print("*****POST to ",response.url)
         print(response.text)

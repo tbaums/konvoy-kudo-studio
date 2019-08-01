@@ -1,3 +1,17 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-client-api-svc
+spec:
+  type: ClusterIP
+  clusterIP: "10.0.58.00"
+  selector:
+    app: kafka-client-api
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -44,18 +58,7 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 1
 status: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: kafka-client-api-svc
-spec:
-  clusterIP: 10.0.59.92
-  selector:
-    app: kafka-client-api
-  ports:
-    - port: 8080
-      targetPort: 8080
+
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress

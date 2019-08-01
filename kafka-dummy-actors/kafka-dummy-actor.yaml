@@ -35,7 +35,7 @@ spec:
         terminationMessagePolicy: File
         env:
         - name: KAFKA_API_URL
-          value: "http://10.0.59.92:8080/kafka-client-api/write"
+          value: "http://10.0.58.00:8080/kafka-client-api/write"
         - name: PYTHONUNBUFFERED
           value: "1"
       dnsPolicy: ClusterFirst
