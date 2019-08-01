@@ -10,14 +10,14 @@ Tested with Konvoy v1.0.0-rc.1 and Kudo v0.4.0 on AWS.
 ## Initial setup
 
 ### Deploy Kudo Kafka
-1. `curl -O https://raw.githubusercontent.com/tbaums/kudo-kafka-etl/master/install-kudo-prereqs.sh`
+1. `curl -O https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/install-kudo-prereqs.sh`
 1. `sh install-kudo-prereqs.sh`
 1. `kubectl kudo install zookeeper --instance=zk`
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
 1. `kubectl kudo install kafka --instance=kafka`
 
 ### Deploy Kafka Client API, Svelte front-end, and Dummy Actors
-1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/kudo-kafka-etl/master/kudo-kafka-app/kafka-client-api.yaml`
+1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-python-api/kafka-client-api.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/svelte-client.yaml`
 
 
