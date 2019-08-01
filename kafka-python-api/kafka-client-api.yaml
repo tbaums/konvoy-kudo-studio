@@ -50,6 +50,7 @@ kind: Service
 metadata:
   name: kafka-client-api-svc
 spec:
+  clusterIP: 10.0.59.92
   selector:
     app: kafka-client-api
   ports:
