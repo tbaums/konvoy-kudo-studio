@@ -6,6 +6,12 @@ Tested with Konvoy v1.0.0-rc.1 and Kudo v0.4.0 on AWS.
 
 ![screencap-gif](https://github.com/tbaums/konvoy-kudo-studio/blob/master/2019_07_22-screencap.gif)
 
+## Prerequisites
+
+This demo assumes you have `kubectl` installed and connected to a Konvoy cluster running the default configuration in AWS.  
+
+Secondly, while not strictly necessary, the commands below assume you have the kudo cli plugin installed.
+
 
 ## Initial setup
 
@@ -25,6 +31,8 @@ Tested with Konvoy v1.0.0-rc.1 and Kudo v0.4.0 on AWS.
 ### Navigate to Svelte UI
 1. Visit \<your AWS elb\>/svelte
 
+### Begin demonstration
+
 #### Manufacturing and IoT example
 1. Click 'Manufactoring & IoT' in the Nav bar
 1. Explain demo architecture
@@ -39,7 +47,7 @@ Tested with Konvoy v1.0.0-rc.1 and Kudo v0.4.0 on AWS.
 1. Click 'User Research' in the Nav bar
 1. Explain demo architecture
 1. Click '-' button to collapse architecture diagram
-1. Open browser 'Network' panel
+1. Open browser 'Network' panel and reload the page. (Right click on the page, and select "Inspect Element". Then, select the 'Network' panel tab. Reload the page to start capturing network traffic.)
 1. Move mouse across left-hand screenshot
 1. Explain that each mouse movement captured by the browser is posted directly to the Python Kafka API server, via an endpoint exposed through Traefik
 1. Observe Node.js Kafka API reading from Kafka queue and returning the mouse movements in the right-hand screenshot
@@ -54,3 +62,5 @@ From User Research screen (assumes above demo steps completed):
 1. Observe POST request duration in browser's Network panel (should be >1000ms)
 1. `kubectl scale deploy kafka-client-api --replicas=5`
 1. Observe POST request duration (should return to ~250ms)
+
+#### 
