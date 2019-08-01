@@ -30,7 +30,7 @@ Tested with Konvoy v1.0.0-rc.1 and Kudo v0.4.0 on AWS.
 1. Explain demo architecture
 1. Click '-' button to collapse architecture diagram
 1. Click button 'Click me to start fetch'
-1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/dummy-actors/kafka-dummy-actor.yaml`
+1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-dummy-actors/kafka-dummy-actor.yaml`
 1. Observe a single actor on the map (left) and in the actor list (on right).
 1. Run `kubectl scale deploy kafka-dummy-actor --replicas=7` to see the list fill in real-time and observe the actors moving around the map.
 
