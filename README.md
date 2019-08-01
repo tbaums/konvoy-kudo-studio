@@ -16,15 +16,15 @@ Secondly, while not strictly necessary, the commands below assume you have the k
 ## Initial setup
 
 ### Deploy Kudo Kafka
-1. `curl -O https://raw.githubusercontent.com/tbaums/kudo-kafka-etl/master/install-kudo-prereqs.sh`
+1. `curl -O https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/install-kudo-prereqs.sh`
 1. `sh install-kudo-prereqs.sh`
 1. `kubectl kudo install zookeeper --instance=zk`
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
 1. `kubectl kudo install kafka --instance=kafka`
 
 ### Deploy Kafka Client API, Svelte front-end, and Dummy Actors
-1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/kudo-kafka-etl/master/kudo-kafka-app/kafka-client-api.yaml`
-1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/svelte-client.yaml`
+1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-python-api/kafka-client-api.yaml`
+1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/svelte-ui/svelte-client.yaml`
 
 
 
@@ -38,7 +38,7 @@ Secondly, while not strictly necessary, the commands below assume you have the k
 1. Explain demo architecture
 1. Click '-' button to collapse architecture diagram
 1. Click button 'Click me to start fetch'
-1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/dummy-actors/kafka-dummy-actor.yaml`
+1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-dummy-actors/kafka-dummy-actor.yaml`
 1. Observe a single actor on the map (left) and in the actor list (on right).
 1. Run `kubectl scale deploy kafka-dummy-actor --replicas=7` to see the list fill in real-time and observe the actors moving around the map.
 
