@@ -3,5 +3,8 @@
 /src/node_modules/@sapper/
 yarn-error.log
 /cypress/screenshots/
+kafka-node-js-api/node_modules/**
+kafka-node-js-api/node_modules/fresh/*
+kafka-node-js-api/node_modules/mime/**
 svelte-ui/node_modules/*
 svelte-ui/__sapper__/
