@@ -154,7 +154,10 @@
         ws.onmessage = function(event) {
             //console.log('message event is', event)
             let json_data = JSON.parse(event.data)
-                //console.log(json_data)
+                //console.log(json_data) 
+            if (json_data.y > 755) {
+                json_data.y = 755
+            }
             list.push(json_data)
                 //console.log(list)
             dots.set(list)

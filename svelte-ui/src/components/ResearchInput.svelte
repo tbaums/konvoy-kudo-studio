@@ -6,10 +6,23 @@
     
     img {
         width: 100%;
+        box-shadow: .5rem .5rem .75rem -.5rem rgba(0, 0, 0, 0.2)
     }
     
     h2 {
         text-align: center;
+    }
+    
+    .input_container {
+        display: grid;
+        grid-template-rows: repeat(3, min-content);
+        grid-gap: 1em;
+        position: relative;
+    }
+    
+    #input_image {
+        /* implemented as an id rather than class because there will only be one on the page */
+        grid-row: 2;
     }
 </style>
 
@@ -51,7 +64,10 @@
 </script>
 
 
-<div on:mousemove={handleMousemove}>
+<div class="input_container">
     <h2>Move mouse around page</h2>
-    <img {src} alt="Mesosphere homepage"> The mouse position is {m.x} x {m.y}
+    <div id="input_image" on:mousemove={handleMousemove}>
+        <img {src} alt="Mesosphere homepage">
+    </div>
+    <div>The mouse position is {m.x} x {m.y}</div>
 </div>
