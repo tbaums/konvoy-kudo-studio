@@ -152,11 +152,11 @@
         }
         let list = []
         ws.onmessage = function(event) {
-            console.log('message event is', event)
+            //console.log('message event is', event)
             let json_data = JSON.parse(event.data)
-            console.log(json_data)
+                //console.log(json_data)
             list.push(json_data)
-            console.log(list)
+                //console.log(list)
             dots.set(list)
             console.log($dots)
         }
