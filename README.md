@@ -21,10 +21,12 @@ Secondly, while not strictly necessary, the commands below assume you have the k
 1. `kubectl kudo install zookeeper --instance=zk`
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
 1. `kubectl kudo install kafka --instance=kafka`
+1. Wait for all 3 Kafka brokers to be `RUNNING` and `READY`
 
-### Deploy Kafka Client API, Svelte front-end, and Dummy Actors
+### Deploy Kafka Client API, Svelte front-end, and Node.js Websocket server
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-python-api/kafka-client-api.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/svelte-ui/svelte-client.yaml`
+1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-node-js-api/kafka-node-js-api.yaml`
 
 
 
@@ -51,7 +53,7 @@ Secondly, while not strictly necessary, the commands below assume you have the k
 1. Move mouse across left-hand screenshot
 1. Explain that each mouse movement captured by the browser is posted directly to the Python Kafka API server, via an endpoint exposed through Traefik
 1. Observe Node.js Kafka API reading from Kafka queue and returning the mouse movements in the right-hand screenshot
-1. Observe POST request duration (should be max 500ms)
+1. Observe POST request duration (should be ~500ms)
 
 #### Demonstrate the power of horizontal scaling
 To demonstrate the power of granular microservice scaling, first we need to generate more load on the Python Kafka API. We will then observe POST request times increase. Lastly, we will scale the Python Kafka API and observe POST request times return to normal.
@@ -61,6 +63,6 @@ From User Research screen (assumes above demo steps completed):
 1. Move mouse across left-hand panel
 1. Observe POST request duration in browser's Network panel (should be >1000ms)
 1. `kubectl scale deploy kafka-client-api --replicas=5`
-1. Observe POST request duration (should return to ~250ms)
+1. Observe POST request duration (should return to ~500ms)
 
 #### 
