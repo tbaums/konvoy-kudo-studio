@@ -7,7 +7,7 @@
 
     import Map from '../components/Map.svelte';
     import ActorStatus from '../components/ActorStatus.svelte';
-    let src = '2019_07_19-arch-diagram.svg'
+    let src = 'iot-arch-diagram.png'
     let arch_collapsed = false
 
     function handle_collapse_click(e) {

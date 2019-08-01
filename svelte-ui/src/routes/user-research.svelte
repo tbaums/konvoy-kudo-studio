@@ -131,7 +131,7 @@
 
     import ResearchInput from '../components/ResearchInput.svelte';
     import ResearchOutput from '../components/ResearchOutput.svelte';
-    let src = '2019_07_19-arch-diagram.svg'
+    let src = 'user-research-arch-diagram.png'
     let arch_collapsed = false
     let current_host
 
@@ -161,7 +161,7 @@
             list.push(json_data)
                 //console.log(list)
             dots.set(list)
-            console.log($dots)
+                // console.log($dots)
         }
 
     }

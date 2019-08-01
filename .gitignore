@@ -3,4 +3,5 @@
 /src/node_modules/@sapper/
 yarn-error.log
 /cypress/screenshots/
+svelte-ui/node_modules/*
 svelte-ui/__sapper__/
