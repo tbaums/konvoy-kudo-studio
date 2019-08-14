@@ -1,8 +1,21 @@
 var WebSocketServer = require('websocket').server;
 var http = require('http');
-var kafka = require('kafka-node'),
-    Consumer = kafka.Consumer,
-    client = new kafka.KafkaClient({ kafkaHost: 'kafka-kafka-0.kafka-svc.default.svc.cluster.local:9093' }),
+var kafka = require('kafka-node')
+
+
+const client = new kafka.KafkaClient({ kafkaHost: 'kafka-kafka-0.kafka-svc.default.svc.cluster.local:9093' })
+const admin = new kafka.Admin(client)
+var topics = [{
+    topic: 'research',
+    partitions: 1,
+    replicationFactor: 3
+}];
+admin.createTopics(topics, (err, res) => {
+    // result is an array of any errors if a given topic could not be created
+    console.log(res)
+})
+
+var Consumer = kafka.Consumer,
     consumer = new Consumer(
         client, [
             { topic: 'research', partition: 0 }
