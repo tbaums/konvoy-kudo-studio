@@ -47,7 +47,7 @@
     <h2>Observe user's cursor in real-time</h2>
     <div id="output_image">
         <img {src} alt="Mesosphere homepage"> {#each $dots as dot}
-        <span class="dot" style="left: {dot.x-125}px; top: {dot.y-205}px;">-</span> { /each }
+        <span class="dot" style="left: {dot.x}px; top: {dot.y}px;">-</span> { /each }
     </div>
 
 

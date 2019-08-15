@@ -43,8 +43,9 @@
     }
 
     function handleMousemove(event) {
-        m.x = event.clientX;
-        m.y = event.clientY;
+        let rect = event.target.getBoundingClientRect();
+        m.x = event.clientX - rect.left;
+        m.y = event.clientY - rect.top + 50;
         post_cursor_coordinates()
     }
 
