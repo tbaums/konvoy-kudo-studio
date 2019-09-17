@@ -15,6 +15,15 @@ Secondly, while not strictly necessary, the commands below assume you have the k
 
 ## Initial setup
 
+### Import Kafka dashboard
+
+1. Nagivate to Grafana
+1. Hover over `+` in left-hand side nav bar
+1. Select import
+1. Copy and paste JSON found [here](https://raw.githubusercontent.com/kudobuilder/operators/master/repository/kafka/docs/v0.1/resources/grafana-dashboard.json)
+1. Click `Upload`
+1. Select `Prometheus` as data source
+
 ### Deploy Kudo Kafka
 1. `curl -O https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/install-kudo-prereqs.sh`
 1. `sh install-kudo-prereqs.sh`
