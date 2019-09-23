@@ -2,7 +2,7 @@
 
 _NB: This is very much a work in progress. Suggestions, constructive criticism, and (especially) PRs are most welcome!_
 
-Tested with Konvoy v1.1.0 and Kudo v0.5.0 on AWS. 
+Tested with Konvoy v1.1.5 and Kudo v0.6.0 on AWS. 
 
 ![screencap-gif](https://github.com/tbaums/konvoy-kudo-studio/blob/master/2019_07_22-screencap.gif)
 
@@ -25,8 +25,7 @@ Secondly, while not strictly necessary, the commands below assume you have the k
 1. Select `Prometheus` as data source
 
 ### Deploy Kudo Kafka
-1. `curl -O https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/install-kudo-prereqs.sh`
-1. `sh install-kudo-prereqs.sh`
+1. `kubectl kudo init`
 1. `kubectl kudo install zookeeper --instance=zk`
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
 1. `kubectl kudo install kafka --instance=kafka`
