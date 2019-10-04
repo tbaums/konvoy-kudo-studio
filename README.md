@@ -2,7 +2,7 @@
 
 _NB: This is very much a work in progress. Suggestions, constructive criticism, and (especially) PRs are most welcome!_
 
-Tested with Konvoy v1.1.5 and Kudo v0.6.0 on AWS. 
+Tested with Konvoy v1.1.5 and Kudo v0.7.2 on AWS. 
 
 ![screencap-gif](https://github.com/tbaums/konvoy-kudo-studio/blob/master/2019_07_22-screencap.gif)
 
