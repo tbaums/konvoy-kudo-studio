@@ -30,6 +30,7 @@ Secondly, while not strictly necessary, the commands below assume you have the k
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
 1. `kubectl kudo install kafka --instance=kafka`
 1. Wait for all 3 Kafka brokers to be `RUNNING` and `READY`
+1. `kubectl create -f https://raw.githubusercontent.com/kudobuilder/operators/master/repository/kafka/docs/v0.2/resources/service-monitor.yaml`
 
 ### Deploy Kafka Client API, Svelte front-end, and Node.js Websocket server
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-python-api/kafka-client-api.yaml`
