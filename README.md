@@ -11,6 +11,7 @@ Tested with Konvoy v1.2.1 and Kudo v0.7.5 on AWS.
 This demo assumes you have `kubectl` installed and connected to a Konvoy cluster running the default configuration in AWS.  
 
 Secondly, the commands below assume you have the kudo cli plugin installed.
+
 `brew install kudo-cli` or `brew upgrade kudo-cli`
 
 ## Initial setup
