@@ -2,7 +2,7 @@
 
 _NB: This is very much a work in progress. Suggestions, constructive criticism, and (especially) PRs are most welcome!_
 
-Tested with Konvoy v1.1.5 and Kudo v0.7.2 on AWS. 
+Tested with Konvoy v1.2.1 and Kudo v0.7.5 on AWS. 
 
 ![screencap-gif](https://github.com/tbaums/konvoy-kudo-studio/blob/master/2019_07_22-screencap.gif)
 
@@ -10,8 +10,8 @@ Tested with Konvoy v1.1.5 and Kudo v0.7.2 on AWS.
 
 This demo assumes you have `kubectl` installed and connected to a Konvoy cluster running the default configuration in AWS.  
 
-Secondly, while not strictly necessary, the commands below assume you have the kudo cli plugin installed.
-
+Secondly, the commands below assume you have the kudo cli plugin installed.
+`brew install kudo-cli` or `brew upgrade kudo-cli`
 
 ## Initial setup
 
