@@ -2,7 +2,7 @@
 
 _NB: This is very much a work in progress. Suggestions, constructive criticism, and (especially) PRs are most welcome!_
 
-Tested with Konvoy v1.2.1 and Kudo v0.7.5 on AWS. 
+Tested with Konvoy v1.3.0-beta5 and Kudo v0.8.0 on AWS. 
 
 ![screencap-gif](https://github.com/tbaums/konvoy-kudo-studio/blob/master/2019_07_22-screencap.gif)
 
@@ -27,7 +27,7 @@ Secondly, the commands below assume you have the kudo cli plugin installed.
 
 ### Deploy Kudo Kafka
 1. `kubectl kudo init`
-1. `kubectl kudo install zookeeper --instance=zk`
+1. `kubectl kudo install zookeeper`
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
 1. `kubectl kudo install kafka --instance=kafka`
 1. Wait for all 3 Kafka brokers to be `RUNNING` and `READY`
