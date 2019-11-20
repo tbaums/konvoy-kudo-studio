@@ -26,12 +26,13 @@ Secondly, the commands below assume you have the kudo cli plugin installed.
 1. Select `Prometheus` as data source
 
 ### Deploy Kudo Kafka
+1. To ensure you are using the latest KUDO, begin by deleting any KUDO instance on your cluster: `kubectl kudo init --dry-run -o yaml | kubectl delete -f -`
 1. `kubectl kudo init`
 1. `kubectl kudo install zookeeper`
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
 1. `kubectl kudo install kafka --instance=kafka`
 1. Wait for all 3 Kafka brokers to be `RUNNING` and `READY`
-1. `kubectl create -f https://raw.githubusercontent.com/kudobuilder/operators/master/repository/kafka/docs/v0.2/resources/service-monitor.yaml`
+1. `kubectl create -f https://raw.githubusercontent.com/kudobuilder/operators/master/repository/kafka/docs/latest/resources/service-monitor.yaml`
 
 ### Deploy Kafka Client API, Svelte front-end, and Node.js Websocket server
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-python-api/kafka-client-api.yaml`
