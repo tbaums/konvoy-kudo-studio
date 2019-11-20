@@ -32,7 +32,7 @@ Secondly, the commands below assume you have the kudo cli plugin installed.
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
 1. `kubectl kudo install kafka --instance=kafka`
 1. Wait for all 3 Kafka brokers to be `RUNNING` and `READY`
-1. `kubectl create -f https://raw.githubusercontent.com/kudobuilder/operators/master/repository/kafka/docs/latest/resources/service-monitor.yaml`
+1. Install the service monitor to observe your Kafka cluster in Grafana `kubectl create -f https://raw.githubusercontent.com/kudobuilder/operators/master/repository/kafka/docs/latest/resources/service-monitor.yaml`
 
 ### Deploy Kafka Client API, Svelte front-end, and Node.js Websocket server
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-python-api/kafka-client-api.yaml`
