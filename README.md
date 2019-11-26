@@ -27,7 +27,7 @@ Secondly, the commands below assume you have the kudo cli plugin installed.
 
 ### Deploy Kudo Kafka
 1. To ensure you are using the latest KUDO, begin by deleting any KUDO instance on your cluster: `kubectl kudo init --dry-run -o yaml | kubectl delete -f -`
-1. `kubectl kudo init`
+1. `kubectl kudo init --wait`
 1. `kubectl kudo install zookeeper`
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
 1. `kubectl kudo install kafka --instance=kafka`
