@@ -1,10 +1,6 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
-  creationTimestamp: null
-  generation: 1
   labels:
     app: kafka-node-js-api
   name: kafka-node-js-api
@@ -42,7 +38,6 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 5
-status: {}
 ---
 apiVersion: v1
 kind: Service
