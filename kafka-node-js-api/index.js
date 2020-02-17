@@ -51,7 +51,7 @@ wsServer.on('request', function(request) {
     var connection = request.accept(null, request.origin)
     consumer.on('message', function(message) {
         console.log(message);
-        connection.sendUTF(JSON.parse(message.value))
+        connection.sendUTF(JSON.parse(message.value));
     });
 
     // This is the most important callback for us, we'll handle
@@ -62,7 +62,8 @@ wsServer.on('request', function(request) {
         }
     });
 
+
     connection.on('close', function(connection) {
         // close user connection
     });
-});
+})
