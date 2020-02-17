@@ -9,6 +9,6 @@ sleep 2
 
 kubectl apply -f kafka-cassandra-connector.yaml
 
-sleep 15
+sleep 5
 kubectl logs -f -l app=kafka-cassandra-connector 
 
