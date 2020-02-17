@@ -46,6 +46,7 @@
         let rect = event.target.getBoundingClientRect();
         m.x = event.clientX - rect.left;
         m.y = event.clientY - rect.top + 50;
+        console.log(m.x, m.y)
         post_cursor_coordinates()
     }
 

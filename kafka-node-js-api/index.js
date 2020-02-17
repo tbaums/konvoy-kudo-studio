@@ -10,10 +10,16 @@ var topics = [{
     partitions: 1,
     replicationFactor: 3
 }];
-admin.createTopics(topics, (err, res) => {
-    // result is an array of any errors if a given topic could not be created
-    console.log(res)
-})
+
+try {
+    admin.createTopics(topics, (err, res) => {
+        // result is an array of any errors if a given topic could not be created
+        console.log(res)
+    })
+} catch (error) {
+    console.error(error)
+}
+
 
 var Consumer = kafka.Consumer,
     consumer = new Consumer(

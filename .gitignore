@@ -8,3 +8,4 @@ kafka-node-js-api/node_modules/fresh/*
 kafka-node-js-api/node_modules/mime/**
 svelte-ui/node_modules/*
 svelte-ui/__sapper__/
+kafka-cassandra-connector/node_modules/**

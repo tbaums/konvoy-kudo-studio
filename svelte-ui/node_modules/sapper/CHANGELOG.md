@@ -1,5 +1,38 @@
 # sapper changelog
 
+## 0.27.9
+
+* Recheck whether a component has a `preload` whenever the file changes ([#611](https://github.com/sveltejs/sapper/issues/611))
+
+
+## 0.27.8
+
+* Enable sourcemaps in dev mode only by default ([#590](https://github.com/sveltejs/sapper/issues/590))
+* Don't silently ignore unknown options passed to CLI (again) ([#729](https://github.com/sveltejs/sapper/issues/729))
+
+
+## 0.27.7
+
+* Revert erroring on unknown options passed to CLI, pending upstream bug investigation
+
+
+## 0.27.6
+
+* Various fixes for CSS sourcemaps ([#421](https://github.com/sveltejs/sapper/issues/421), [#537](https://github.com/sveltejs/sapper/issues/537), [#808](https://github.com/sveltejs/sapper/issues/808))
+* Add `export` option `--entry` for specifying multiple entry points ([#749](https://github.com/sveltejs/sapper/issues/749))
+* Fix paths to component CSS in legacy build ([#775](https://github.com/sveltejs/sapper/issues/775))
+
+
+## 0.27.5
+
+* Fix exported sites with links to static files ([#572](https://github.com/sveltejs/sapper/issues/572))
+* Properly update manifest data during changes in dev mode ([#713](https://github.com/sveltejs/sapper/pull/713))
+* Don't silently ignore unknown options passed to CLI ([#729](https://github.com/sveltejs/sapper/issues/729))
+* Add `host` value to `page` store, giving uniform access to `req.headers.host`/`location.host` ([#735](https://github.com/sveltejs/sapper/issues/735))
+* Log uncaught exceptions in server routes ([#782](https://github.com/sveltejs/sapper/issues/782))
+* Fix default error template ([#817](https://github.com/sveltejs/sapper/issues/817))
+
+
 ## 0.27.4
 
 * Update devalue
