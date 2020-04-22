@@ -2,7 +2,7 @@
 
 _NB: Suggestions, constructive criticism, and (especially) PRs are most welcome!_
 
-Tested on AWS with:
+Tested on AWS and Azure with:
 - Konvoy v1.4.2
 - KUDO v0.12.0
 - Kafka Operator Version v1.2.0
