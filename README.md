@@ -10,7 +10,7 @@ Tested with Konvoy v1.4.2 and Kudo v0.12.0 on AWS.
 
 1. This demo assumes you have `kubectl` installed and connected to a Konvoy cluster.  
 2. Install the KUDO CLI plugin for `kubectl` via: `brew install kudo-cli` / `brew upgrade kudo-cli` OR `kubectl krew install kudo` / `kubectl krew upgrade kudo`
-1. Confirm you are running the latest KUDO CLI via: `kubectl kudo --version`
+1. Confirm you are running the latest KUDO CLI (v0.12.0) via: `kubectl kudo --version`
 1. To execute in an airgapped environment, please follow the [airgapped instructions](./airgapped-instructions.md) before proceeding.
 
 ## Initial setup
@@ -34,7 +34,7 @@ Tested with Konvoy v1.4.2 and Kudo v0.12.0 on AWS.
 1. Wait for all 3 Kafka brokers to be `RUNNING` and `READY`
 
 ### Deploy Kafka Client API, Svelte front-end, and Node.js Websocket server
-1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-python-api/kafka-client-api.yaml`
+1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-client-api/kafka-client-api.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/svelte-ui/svelte-client.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-node-js-api/kafka-node-js-api.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-dummy-actors/kafka-dummy-actor.yaml`

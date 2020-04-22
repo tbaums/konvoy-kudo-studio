@@ -18,7 +18,7 @@
 1. kafka-dummy-actors/kafka-dummy-actor.yaml
 1. kafka-node-js-api/kafka-node-js-api.yaml
 1. svelte-ui/svelte-client.yaml
-1. kafka-python-api/kafka-client-api.yaml
+1. kafka-client-api/kafka-client-api.yaml
 1. Run `kubectl kudo init --dry-run -o yaml > kk-init.yaml` and edit the image in `kk-init.yaml`
 1. Run `kubectl apply -f kk-init.yaml`
 1. Edit `/zookeeper/templates/statefulset.yaml` to point to your local image of ZooKeeper.
