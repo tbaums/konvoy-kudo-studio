@@ -24,6 +24,8 @@ if sys.version_info[0] == 3:
 logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
 
+kafka_dns = "kafka-kafka-0.kafka-svc." + os.environ["CURRENT_POD_NAMESPACE"] + ".svc.cluster.local:9093"
+
 
 ###################################
 #              API                #
@@ -94,7 +96,7 @@ def read():
 def get_producer():
     try:
         producer_client = KafkaProducer(
-            bootstrap_servers=[os.environ["BROKER_SERVICE"]],
+            bootstrap_servers=[kafka_dns],
             value_serializer=lambda x: json.dumps(x).encode("utf-8"),
             acks=1,
         )
@@ -130,7 +132,7 @@ def get_consumer(topic, group_id):
     try:
         consumer = KafkaConsumer(
             topic,
-            bootstrap_servers=[os.environ["BROKER_SERVICE"]],
+            bootstrap_servers=[kafka_dns],
             auto_offset_reset="earliest",
             enable_auto_commit=True,
             group_id=str(group_id),
