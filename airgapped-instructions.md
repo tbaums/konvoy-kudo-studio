@@ -24,6 +24,6 @@
 1. Edit `/zookeeper/templates/statefulset.yaml` to point to your local image of ZooKeeper.
 1. FROM THE DIRECTORY WHERE THE ZOOKEEPER DIRECTORY SITS, run `kubectl kudo install zookeeper`.
 1. Edit `/kafka/templates/statefulset.yaml` to point to your local image of `node-exporter:v0.18.1` and `kafka:2.4.0-1.3.0` 
-1. FROM THE DIRECTORY WHERE THE ZOOKEEPER DIRECTORY SITS, run `kubectl kudo install kafka --instance=kafka -p ADD_SERVICE_MONITOR=true --wait`
+1. FROM THE DIRECTORY WHERE THE KAFKA DIRECTORY SITS, run `kubectl kudo install kafka --instance=kafka -p ADD_SERVICE_MONITOR=true --wait`
 
 Proceed to *Deploy Kafka Client API, Svelte front-end, and Node.js Websocket server* step in [main instructions](./README.md).
