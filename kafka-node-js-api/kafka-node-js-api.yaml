@@ -30,6 +30,10 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         env:
+        - name: CURRENT_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
           #TODO: get TLS working because this is v dangerous
         - name: NODE_TLS_REJECT_UNAUTHORIZED
           value: '0'
