@@ -1,19 +1,17 @@
 # Konvoy + Kudo Studio
 
-_NB: This is very much a work in progress. Suggestions, constructive criticism, and (especially) PRs are most welcome!_
+_NB: Suggestions, constructive criticism, and (especially) PRs are most welcome!_
 
-Tested with Konvoy v1.3.0-beta5 and Kudo v0.8.0 on AWS. 
-Tested with Konvoy v1.3.0-beta7 and Kudo v0.9.0 on GCP.
+Tested with Konvoy v1.4.2 and Kudo v0.12.0 on AWS. 
 
 ![screencap-gif](https://github.com/tbaums/konvoy-kudo-studio/blob/master/2019_07_22-screencap.gif)
 
 ## Prerequisites
 
-This demo assumes you have `kubectl` installed and connected to a Konvoy cluster running the default configuration in AWS.  
-
-Secondly, the commands below assume you have the kudo cli plugin installed.
-
-`brew install kudo-cli` or `brew upgrade kudo-cli`
+1. This demo assumes you have `kubectl` installed and connected to a Konvoy cluster.  
+2. Install the KUDO CLI plugin for `kubectl` via: `brew install kudo-cli` / `brew upgrade kudo-cli` OR `kubectl krew install kudo` / `kubectl krew upgrade kudo`
+1. Confirm you are running the latest KUDO CLI via: `kubectl kudo --version`
+1. To execute in an airgapped environment, please follow the [airgapped instructions](./airgapped-instructions.md) before proceeding.
 
 ## Initial setup
 
@@ -27,13 +25,13 @@ Secondly, the commands below assume you have the kudo cli plugin installed.
 1. Select `Prometheus` as data source
 
 ### Deploy Kudo Kafka
-1. To ensure you are using the latest KUDO, begin by deleting any KUDO instance on your cluster: `kubectl kudo init --dry-run -o yaml | kubectl delete -f -`
-1. `kubectl kudo init --wait`
-1. `kubectl kudo install zookeeper`
+
+1. Confirm you do not have an earlier version of KUDO deployed to your cluster by running `kubectl get ns kudo-system`. If kubectl responds saying the namespace was not found, proceed to the next step. If you discover that KUDO is already installed in your cluster, please begin by deleting the KUDO instance on your cluster: `kubectl kudo init --dry-run -o yaml | kubectl delete -f -`
+1. Install KUDO on your cluster: `kubectl kudo init --wait`
+1. Next, install Zookeeper, which is a dependency for Kafka: `kubectl kudo install zookeeper --wait`
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
-1. `kubectl kudo install kafka --instance=kafka`
+1. `kubectl kudo install kafka --instance=kafka -p ADD_SERVICE_MONITOR=true --wait`
 1. Wait for all 3 Kafka brokers to be `RUNNING` and `READY`
-1. Install the service monitor to observe your Kafka cluster in Grafana `kubectl create -f https://raw.githubusercontent.com/kudobuilder/operators/master/repository/kafka/docs/latest/resources/service-monitor.yaml`
 
 ### Deploy Kafka Client API, Svelte front-end, and Node.js Websocket server
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-python-api/kafka-client-api.yaml`
