@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Name }}-{{ .OperatorName }}
+  namespace: {{ .Namespace }}
+  labels:
+    zookeeper: {{ .OperatorName }}
+    app: zookeeper
+    instance: {{ .Name }}
+  annotations:
+    reloader.kudo.dev/auto: "true"
+spec:
+  selector:
+    matchLabels:
+      app: zookeeper
+      zookeeper: {{ .OperatorName }}
+      instance: {{ .Name }}
+  serviceName: {{ .Name }}-hs
+  replicas: {{ .Params.NODE_COUNT }}
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy: Parallel
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+        zookeeper: {{ .OperatorName }}
+        instance: {{ .Name }}
+    spec:
+      containers:
+        - name: kubernetes-zookeeper
+          imagePullPolicy: Always
+          image: "zookeeper:3.4.14"
+          resources:
+            requests:
+              memory: {{ .Params.MEMORY }}
+              cpu: {{ .Params.CPUS }}
+            limits:
+              memory: {{ .Params.MEM_LIMIT }}
+              cpu: {{ .Params.CPUS_LIMIT }}
+          ports:
+            - containerPort: {{ .Params.CLIENT_PORT }}
+              name: client
+            - containerPort: {{ .Params.SERVER_PORT }}
+              name: server
+            - containerPort: {{ .Params.ELECTION_PORT }}
+              name: leader-election
+          command:
+            - sh
+            - -c
+            - "ZOOKEEPERPATH=`pwd` /etc/zookeeper/bootstrap.sh \
+              --servers={{ .Params.NODE_COUNT }} \
+              --data_dir=/var/lib/zookeeper/data \
+              --data_log_dir=/logs \
+              --conf_dir=/conf \
+              --client_port={{ .Params.CLIENT_PORT }} \
+              --election_port={{ .Params.ELECTION_PORT }} \
+              --server_port={{ .Params.SERVER_PORT }} \
+              --tick_time=2000 \
+              --init_limit=10 \
+              --sync_limit=5 \
+              --heap=512M \
+              --max_client_cnxns=60 \
+              --snap_retain_count=3 \
+              --purge_interval=12 \
+              --max_session_timeout=40000 \
+              --min_session_timeout=4000 \
+              --log_level=INFO"
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "/etc/healthcheck/healthcheck.sh {{ .Params.CLIENT_PORT }}"
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "/etc/healthcheck/healthcheck.sh {{ .Params.CLIENT_PORT }}"
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            periodSeconds: 30
+          volumeMounts:
+            - name: {{ .Name }}-datadir
+              mountPath: /var/lib/zookeeper
+            - name: {{ .Name }}-bootstrap
+              mountPath: /etc/zookeeper
+            - name: {{ .Name }}-healthcheck
+              mountPath: /etc/healthcheck
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
+      volumes:
+      - name: {{ .Name }}-bootstrap
+        configMap:
+          name: {{ .Name }}-bootstrap
+          defaultMode: 0777
+      - name: {{ .Name }}-healthcheck
+        configMap:
+          name: {{ .Name }}-healthcheck
+          defaultMode: 0777
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Name }}-datadir
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: {{ .Params.DISK_SIZE }}
+      {{ if .Params.STORAGE_CLASS }}
+      storageClassName: {{ .Params.STORAGE_CLASS }}
+      {{ end }}
