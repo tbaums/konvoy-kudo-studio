@@ -2,7 +2,11 @@
 
 _NB: Suggestions, constructive criticism, and (especially) PRs are most welcome!_
 
-Tested with Konvoy v1.4.2 and Kudo v0.12.0 on AWS. 
+Tested on AWS with:
+- Konvoy v1.4.2
+- KUDO v0.12.0
+- Kafka Operator Version v1.2.0
+- Zookeeper Operator Version v0.3.0
 
 ![screencap-gif](https://github.com/tbaums/konvoy-kudo-studio/blob/master/2019_07_22-screencap.gif)
 
