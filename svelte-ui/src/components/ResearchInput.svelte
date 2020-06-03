@@ -44,8 +44,8 @@
 
     function handleMousemove(event) {
         let rect = event.target.getBoundingClientRect();
-        m.x = event.clientX - rect.left;
-        m.y = event.clientY - rect.top + 50;
+        m.x = Math.round(event.clientX - rect.left);
+        m.y = Math.round(event.clientY - rect.top + 50);
         console.log(m.x, m.y)
         post_cursor_coordinates()
     }
