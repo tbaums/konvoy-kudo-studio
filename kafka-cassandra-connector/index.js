@@ -37,7 +37,7 @@ consumer.on('message', function(message) {
     y = parsedMessage.y;
     uid = message.offset;
     try {
-        cassandraClient.execute(`INSERT INTO coordinates (uid, x, y) VALUES (${uid} ,${x}, ${y});`);
+        cassandraClient.execute(`INSERT INTO coordinates (uid, x, y) VALUES (${uid} ,${x}, ${y});`).catch(e => { console.error(e) });
         console.log(`Success: INSERT INTO coordinates (uid, x, y) VALUES (${uid},${x},${y})`);
     } catch (e) {
         console.log(e)
