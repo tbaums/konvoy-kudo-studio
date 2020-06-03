@@ -37,11 +37,18 @@ Tested on AWS and Azure with:
 1. `kubectl kudo install kafka --instance=kafka -p ADD_SERVICE_MONITOR=true --wait`
 1. Wait for all 3 Kafka brokers to be `RUNNING` and `READY`
 
-### Deploy Kafka Client API, Svelte front-end, and Node.js Websocket server
+### Deploy KUDO Cassandra
+
+1. `kubectl kudo install cassandra --instance=cassandra -p PROMETHEUS_EXPORTER_ENABLED=true --wait`
+1. Wait for all 3 Cassandra nodes to be `RUNNING` and `READY`
+
+
+### Deploy Kafka Client API, Svelte front-end, Node.js Websocket server, and Cassandra connector
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-client-api/kafka-client-api.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/svelte-ui/svelte-client.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-node-js-api/kafka-node-js-api.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-dummy-actors/kafka-dummy-actor.yaml`
+
 
 
 
