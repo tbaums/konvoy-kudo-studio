@@ -48,6 +48,7 @@ Tested on AWS and Azure with:
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/svelte-ui/svelte-client.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-node-js-api/kafka-node-js-api.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-dummy-actors/kafka-dummy-actor.yaml`
+1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-cassandra-connector/kafka-cassandra-connector.yaml`
 
 
 
