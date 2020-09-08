@@ -49,6 +49,8 @@ spec:
               fieldPath: metadata.namespace
         - name: PYTHONUNBUFFERED
           value: "1"
+        - name: KAFKA_ENDPOINT
+          value: "kafka-kafka-0.kafka-svc.platform-services.svc.cluster.local:9093"
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

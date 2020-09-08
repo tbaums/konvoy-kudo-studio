@@ -33,10 +33,17 @@ spec:
           #TODO: get TLS working because this is v dangerous
         - name: NODE_TLS_REJECT_UNAUTHORIZED
           value: '0'
+        - name: KAFKA_ENDPOINT
+          value: 'kafka-kafka-0.kafka-svc.platform-services.svc.cluster.local:9093'
+        - name: CASSANDRA_ENDPOINT
+          value: 'cassandra-node-0.cassandra-svc.platform-services.svc.cluster.local:9042'
       initContainers:
       - image: tbaums/cassandra-init:latest
         imagePullPolicy: Always
         name: cassandra-init
+        env:
+        - name: CASSANDRA_ENDPOINT
+          value: 'cassandra-node-0.cassandra-svc.platform-services.svc.cluster.local:9042'
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

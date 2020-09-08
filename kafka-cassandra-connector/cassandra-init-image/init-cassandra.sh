@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cassandra_instance="cassandra-svc.default.svc.cluster.local"
+cassandra_instance=$CASSANDRA_ENDPOINT
 
 sleep 1
 

@@ -24,7 +24,7 @@ if sys.version_info[0] == 3:
 logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
 
-kafka_dns = "kafka-kafka-0.kafka-svc." + os.environ["CURRENT_POD_NAMESPACE"] + ".svc.cluster.local:9093"
+kafka_dns = os.environ["KAFKA_ENDPOINT"]
 
 
 ###################################
