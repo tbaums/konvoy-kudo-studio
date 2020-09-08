@@ -2,11 +2,7 @@
 
 _NB: Suggestions, constructive criticism, and (especially) PRs are most welcome!_
 
-Tested on AWS and Azure with:
-- Konvoy v1.4.2
-- KUDO v0.12.0
-- Kafka Operator Version v1.2.0
-- Zookeeper Operator Version v0.3.0
+Please review the [Support Matrix](#support-matrix) for version compatibility.
 
 ![screencap-gif](https://github.com/tbaums/konvoy-kudo-studio/blob/master/2019_07_22-screencap.gif)
 
@@ -88,4 +84,8 @@ From User Research screen (assumes above demo steps completed):
 1. `kubectl scale deploy kafka-client-api --replicas=5`
 1. Observe POST request duration (should return to ~500ms)
 
-#### 
+## Support matrix
+
+| Konvoy Version | KUDO Version | ZK Version | Kafka Version | Cassandra Version | KUDO Kubeflow Version | AWS | Azure | GCP |
+|---------------:|--------------|------------|---------------|-------------------|-----------------------|-----|-------|-----|
+| 1.4.2          | 0.12.0       | 0.3.1      | 1.3.1         | 1.0.0             | 0.3.1                 | ✅   |       |     |
