@@ -1,4 +1,4 @@
-kubectl delete deploy/kafka-cassandra-connector
+kubectl delete deploy/kafka-cassandra-connector -n kafka-cassandra-connector
 
 docker build . -t tbaums/kafka-cassandra-connector
 docker push tbaums/kafka-cassandra-connector

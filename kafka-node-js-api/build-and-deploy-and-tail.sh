@@ -1,4 +1,4 @@
-kubectl delete deploy/kafka-node-js-api
+kubectl delete deploy/kafka-node-js-api -n kafka-node-js-api
 
 docker build . -t tbaums/kafka-node-js-api
 docker push tbaums/kafka-node-js-api

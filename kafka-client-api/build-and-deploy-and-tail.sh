@@ -1,4 +1,4 @@
-kubectl delete deploy/kafka-client-api
+kubectl delete deploy/kafka-client-api -n kafka-client-api 
 
 
 docker build . -t tbaums/kafka-client-api
