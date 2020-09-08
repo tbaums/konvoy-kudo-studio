@@ -61,7 +61,10 @@ if __name__ == "__main__":
         # get only the 5 unique digits at the end of the pod name
         actor = socket.gethostname()[-5:len(socket.gethostname())]
         # TODO: move this to env var passed in YAML. Also, use an internal cluster IP rather than going to the public internet and back.
-        url = 'http://' + os.environ['KAFKA_CLIENT_API_SVC_SERVICE_HOST'] + ":" + os.environ['KAFKA_CLIENT_API_SVC_SERVICE_PORT'] + "/kafka-client-api/write"
+        # url = 'http://' + os.environ['KAFKA_CLIENT_API_SVC_SERVICE_HOST'] + ":" + os.environ['KAFKA_CLIENT_API_SVC_SERVICE_PORT'] + "/kafka-client-api/write"
+        url = 'http://' + os.environ['KAFKA_CLIENT_API'] + "/kafka-client-api/write"
+
+
 
         querystring = {"topic":"actors","payload": json.dumps({'actor': actor, 'x': x, 'y': y}),"repetitions":"1"}
         print(querystring)

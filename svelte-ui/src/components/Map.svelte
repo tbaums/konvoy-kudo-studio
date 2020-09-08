@@ -182,6 +182,15 @@
             //console.log(xhr.response)
         }
     }
+
+    async function reset(event) {
+        let xhr = new XMLHttpRequest()
+        xhr.responseType = 'text';
+        let url = 'https://' + current_host + '/kafka-client-api/delete-topic?topic=actors'
+        console.log("url is: ", url)
+        xhr.open("GET", url)
+        xhr.send()
+    }
 </script>
 
 
@@ -193,5 +202,9 @@
 </div>
 
 <button on:click={fetch_map}>
-        Click me to start data stream
+    Start data stream
+</button>
+
+<button on:click={reset}>
+    Reset
 </button>

@@ -1,4 +1,4 @@
-kubectl delete deploy/kafka-robot-actor
+kubectl delete deploy/kafka-robot-actor -n kafka-robot-actors
 
 
 docker build . -t tbaums/kafka-robot-actor

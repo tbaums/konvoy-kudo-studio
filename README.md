@@ -30,7 +30,7 @@ Please review the [Support Matrix](#support-matrix) for version compatibility.
 1. Install KUDO on your cluster: `kubectl kudo init --wait`
 1. Next, install Zookeeper, which is a dependency for Kafka: `kubectl kudo install zookeeper --wait`
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
-1. `kubectl kudo install kafka --instance=kafka -p ADD_SERVICE_MONITOR=true --wait`
+1. `kubectl kudo install kafka --instance=kafka -p ADD_SERVICE_MONITOR=true DELETE_TOPIC_ENABLE=true --wait`
 1. Wait for all 3 Kafka brokers to be `RUNNING` and `READY`
 
 ### Deploy KUDO Cassandra

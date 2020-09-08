@@ -8,7 +8,7 @@ metadata:
   namespace: kafka-robot-actors
 spec:
   progressDeadlineSeconds: 600
-  replicas: 0
+  replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -34,6 +34,8 @@ spec:
         env:
         - name: PYTHONUNBUFFERED
           value: "1"
+        - name: KAFKA_CLIENT_API
+          value: "kafka-client-api-svc.kafka-client-api.svc.cluster.local:8080"
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
