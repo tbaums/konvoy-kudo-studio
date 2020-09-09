@@ -28,14 +28,14 @@ Please review the [Support Matrix](#support-matrix) for version compatibility.
 
 1. Confirm you do not have an earlier version of KUDO deployed to your cluster by running `kubectl get ns kudo-system`. If kubectl responds saying the namespace was not found, proceed to the next step. If you discover that KUDO is already installed in your cluster, please begin by deleting the KUDO instance on your cluster: `kubectl kudo init --dry-run -o yaml | kubectl delete -f -`
 1. Install KUDO on your cluster: `kubectl kudo init --wait`
-1. Next, install Zookeeper, which is a dependency for Kafka: `kubectl kudo install zookeeper --wait`
+1. Next, install Zookeeper, which is a dependency for Kafka: `kubectl kudo install zookeeper -n platform-services`
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
-1. `kubectl kudo install kafka --instance=kafka -p ADD_SERVICE_MONITOR=true DELETE_TOPIC_ENABLE=true --wait`
+1. `kubectl kudo install kafka --instance=kafka -p ADD_SERVICE_MONITOR=true DELETE_TOPIC_ENABLE=true -n platform-services`
 1. Wait for all 3 Kafka brokers to be `RUNNING` and `READY`
 
 ### Deploy KUDO Cassandra
 
-1. `kubectl kudo install cassandra --instance=cassandra -p PROMETHEUS_EXPORTER_ENABLED=true --wait`
+1. `kubectl kudo install cassandra --instance=cassandra -p PROMETHEUS_EXPORTER_ENABLED=true -n platform-services`
 1. Wait for all 3 Cassandra nodes to be `RUNNING` and `READY`
 
 
