@@ -40,3 +40,32 @@ spec:
       restartPolicy: Always
       schedulerName: default-scheduler
       terminationGracePeriodSeconds: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: robot-api-svc
+  namespace: kafka-robot-actors
+spec:
+  type: ClusterIP
+  selector:
+    app: kafka-robot-actor
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+  apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+    annotations:
+      kubernetes.io/ingress.class: traefik
+    name: robot-api-ingress
+    namespace: kafka-robot-actors
+  spec:
+    rules:
+    - http:
+        paths:
+        - path: /robot-api
+          backend:
+            serviceName: robot-api-svc
+            servicePort: 8080

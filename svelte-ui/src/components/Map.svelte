@@ -140,9 +140,21 @@
         }
     }
 
+    async function start_robots() {
+        let xhr = new XMLHttpRequest()
+        xhr.responseType = 'text';
+        let url = 'https://' + current_host + '/robot-api/start'
+        console.log("url is: ", url)
+        xhr.open("GET", url)
+        xhr.send()
+
+    }
+
+
 
 
     async function fetch_map(event) {
+        start_robots()
         let xhr = new XMLHttpRequest()
         xhr.responseType = 'text';
         let url = 'https://' + current_host + '/kafka-client-api/read?topic=actors'
@@ -191,6 +203,24 @@
         xhr.open("GET", url)
         xhr.send()
     }
+
+    async function add_robot(event) {
+        let xhr = new XMLHttpRequest()
+        xhr.responseType = 'text';
+        let url = 'https://' + current_host + '/robot-api/increment'
+        console.log("url is: ", url)
+        xhr.open("GET", url)
+        xhr.send()
+    }
+
+    async function remove_robot(event) {
+        let xhr = new XMLHttpRequest()
+        xhr.responseType = 'text';
+        let url = 'https://' + current_host + '/robot-api/decrement'
+        console.log("url is: ", url)
+        xhr.open("GET", url)
+        xhr.send()
+    }
 </script>
 
 
@@ -207,4 +237,12 @@
 
 <button on:click={reset}>
     Reset
+</button>
+
+<button on:click={add_robot}>
+    Add Robot
+</button>
+
+<button on:click={remove_robot}>
+    Remove Robot
 </button>
