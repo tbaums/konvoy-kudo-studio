@@ -1,5 +1,5 @@
 .DS_Store
-/node_modules/
+**/node_modules
 /src/node_modules/@sapper/
 yarn-error.log
 /cypress/screenshots/
@@ -8,5 +8,7 @@ kafka-node-js-api/node_modules/fresh/*
 kafka-node-js-api/node_modules/mime/**
 svelte-ui/node_modules/*
 svelte-ui/__sapper__/
+svelte-ui/node_modules/**
+svelte-ui/node_modules
 kafka-cassandra-connector/node_modules/**
 prediction-api/.vscode/settings.json
