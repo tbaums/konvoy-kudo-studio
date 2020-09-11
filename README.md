@@ -24,6 +24,10 @@ Please review the [Support Matrix](#support-matrix) for version compatibility.
 1. Click `Upload`
 1. Select `Prometheus` as data source
 
+### Create namespaces
+
+1. `kubectl create ns kafka-cassandra-connector kafka-node-js-api kafka-robot-actors svelte-ui kafka-client-api`
+
 ### Deploy Kudo Kafka
 
 1. Confirm you do not have an earlier version of KUDO deployed to your cluster by running `kubectl get ns kudo-system`. If kubectl responds saying the namespace was not found, proceed to the next step. If you discover that KUDO is already installed in your cluster, please begin by deleting the KUDO instance on your cluster: `kubectl kudo init --dry-run -o yaml | kubectl delete -f -`
@@ -43,7 +47,7 @@ Please review the [Support Matrix](#support-matrix) for version compatibility.
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-client-api/kafka-client-api.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/svelte-ui/svelte-client.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-node-js-api/kafka-node-js-api.yaml`
-1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-dummy-actors/kafka-dummy-actor.yaml`
+1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-robot-actors/kafka-robot-actor.yaml`
 1. `kubectl apply -f https://raw.githubusercontent.com/tbaums/konvoy-kudo-studio/master/kafka-cassandra-connector/kafka-cassandra-connector.yaml`
 
 
@@ -59,9 +63,9 @@ Please review the [Support Matrix](#support-matrix) for version compatibility.
 1. Explain demo architecture
 1. Click '-' button to collapse architecture diagram
 1. Click button 'Click me to start fetch'
-1. Run `kubectl scale deploy kafka-dummy-actor --replicas=1`
+1. Run `kubectl scale deploy kafka-robot-actor --replicas=1`
 1. Observe a single actor on the map (left) and in the actor list (on right).
-1. Run `kubectl scale deploy kafka-dummy-actor --replicas=7` to see the list fill in real-time and observe the actors moving around the map.
+1. Run `kubectl scale deploy kafka-robot-actor --replicas=7` to see the list fill in real-time and observe the actors moving around the map.
 
 #### User Research example
 
@@ -78,7 +82,7 @@ Please review the [Support Matrix](#support-matrix) for version compatibility.
 To demonstrate the power of granular microservice scaling, first we need to generate more load on the Python Kafka API. We will then observe POST request times increase. Lastly, we will scale the Python Kafka API and observe POST request times return to normal.
 
 From User Research screen (assumes above demo steps completed):
-1. `kubectl scale deploy kafka-dummy-actor --replicas=70`
+1. `kubectl scale deploy kafka-robot-actor --replicas=70`
 1. Move mouse across left-hand panel
 1. Observe POST request duration in browser's Network panel (should be >1000ms)
 1. `kubectl scale deploy kafka-client-api --replicas=5`
