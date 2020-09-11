@@ -68,11 +68,14 @@
 
     //need to create an array of actors because Svelte can't iterate over Map objects
     function gen_actor_list() {
-        // let arr = [];
-        $actors = []
-        for (let item of $map.keys()) {
-            $actors.push(item)
-        }
+        let xhr = new XMLHttpRequest()
+        xhr.responseType = 'json'
+        let url = 'https://' + current_host + '/robot-api/list'
+        console.log("url is: ", url)
+        xhr.open("GET", url)
+        xhr.send()
+
+        $actors = xhr.response
         return $actors
     }
 
@@ -140,9 +143,20 @@
         }
     }
 
+    async function start_robots() {
+        let xhr = new XMLHttpRequest()
+        xhr.responseType = 'text';
+        let url = 'https://' + current_host + '/robot-api/start'
+        console.log("url is: ", url)
+        xhr.open("GET", url)
+        xhr.send()
+    }
+
+
 
 
     async function fetch_map(event) {
+        start_robots()
         let xhr = new XMLHttpRequest()
         xhr.responseType = 'text';
         let url = 'https://' + current_host + '/kafka-client-api/read?topic=actors'
@@ -182,6 +196,33 @@
             //console.log(xhr.response)
         }
     }
+
+    async function reset(event) {
+        let xhr = new XMLHttpRequest()
+        xhr.responseType = 'text';
+        let url = 'https://' + current_host + '/kafka-client-api/delete-topic?topic=actors'
+        console.log("url is: ", url)
+        xhr.open("GET", url)
+        xhr.send()
+    }
+
+    async function add_robot(event) {
+        let xhr = new XMLHttpRequest()
+        xhr.responseType = 'text';
+        let url = 'https://' + current_host + '/robot-api/increment'
+        console.log("url is: ", url)
+        xhr.open("GET", url)
+        xhr.send()
+    }
+
+    async function remove_robot(event) {
+        let xhr = new XMLHttpRequest()
+        xhr.responseType = 'text';
+        let url = 'https://' + current_host + '/robot-api/decrement'
+        console.log("url is: ", url)
+        xhr.open("GET", url)
+        xhr.send()
+    }
 </script>
 
 
@@ -193,5 +234,17 @@
 </div>
 
 <button on:click={fetch_map}>
-        Click me to start data stream
+    Start data stream
+</button>
+
+<button on:click={reset}>
+    Reset
+</button>
+
+<button on:click={add_robot}>
+    Add Robot
+</button>
+
+<button on:click={remove_robot}>
+    Remove Robot
 </button>

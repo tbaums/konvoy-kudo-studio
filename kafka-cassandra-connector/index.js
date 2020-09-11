@@ -2,7 +2,7 @@ const kafka = require('kafka-node')
 const cassandra = require('cassandra-driver');
 let cassandraClient
 
-const kafkaClient = new kafka.KafkaClient({ kafkaHost: 'kafka-kafka-0.kafka-svc.default.svc.cluster.local:9093' })
+const kafkaClient = new kafka.KafkaClient({ kafkaHost: process.env.KAFKA_ENDPOINT })
 const admin = new kafka.Admin(kafkaClient)
 var topics = [{
     topic: 'research',
@@ -23,7 +23,7 @@ var Consumer = kafka.Consumer,
 console.log(consumer)
 
 try {
-    cassandraClient = new cassandra.Client({ contactPoints: ['cassandra-node-0.cassandra-svc.default.svc.cluster.local:9042'], keyspace: 'research', localDataCenter: 'datacenter1' });
+    cassandraClient = new cassandra.Client({ contactPoints: [process.env.CASSANDRA_ENDPOINT], keyspace: 'research', localDataCenter: 'datacenter1' });
     console.log('Success: Connected to Cassandra')
 } catch (e) {
     console.log(e)

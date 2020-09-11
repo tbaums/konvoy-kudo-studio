@@ -1,4 +1,4 @@
-kubectl delete deploy/svelte-client
+kubectl delete deploy/svelte-client -n svelte-ui
 
 docker build . -t tbaums/svelte-client
 docker push tbaums/svelte-client

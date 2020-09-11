@@ -16,6 +16,7 @@ from flask import (
     json,
 )
 from kafka import KafkaConsumer, KafkaProducer
+from confluent_kafka.admin import AdminClient, NewTopic
 
 if sys.version_info[0] == 3:
     os.environ["PYTHONUNBUFFERED"] = "1"
@@ -24,7 +25,7 @@ if sys.version_info[0] == 3:
 logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
 
-kafka_dns = "kafka-kafka-0.kafka-svc." + os.environ["CURRENT_POD_NAMESPACE"] + ".svc.cluster.local:9093"
+kafka_dns = os.environ["KAFKA_ENDPOINT"]
 
 
 ###################################
@@ -33,7 +34,7 @@ kafka_dns = "kafka-kafka-0.kafka-svc." + os.environ["CURRENT_POD_NAMESPACE"] + "
 
 # This API is designed to be extremely simple, testable, and extensible by the widest possible audience.
 #
-# The API contains only two methods, `read` and `write`.
+# The API contains only 3 methods, `read`, `write`, and `delete-topic`.
 
 
 # WRITE_TO_KAFKA ----------------------------------------------
@@ -68,18 +69,17 @@ def read():
     query_string = urllib.parse.parse_qs(request.query_string.decode("UTF-8"))
     app.logger.debug("Request query_string: " + str(query_string))
     topic = query_string["topic"][0]
-    # TODO: Implement proper UUID for default group_id 
-    if ("group_id" in query_string and len(query_string["group_id"]) > 0):
-        group_id = query_string["group_id"][0] 
+    # TODO: Implement proper UUID for default group_id
+    if "group_id" in query_string and len(query_string["group_id"]) > 0:
+        group_id = query_string["group_id"][0]
     else:
-        group_id = str(socket.gethostname()) + str(random.randint(0,9999999999))
+        group_id = str(socket.gethostname()) + str(random.randint(0, 9999999999))
     # NOTE: read_from_kafka() is included here to facilitate stream_with_context to FE.
     def read_from_kafka():
         try:
             consumer_client = get_consumer(topic, group_id)
         except Exception as e:
             app.logger.error("Could not create consumer_client with error " + str(e))
-
 
         for message in consumer_client:
             app.logger.info(message)
@@ -88,6 +88,47 @@ def read():
         consumer_client.close()
 
     return Response(stream_with_context(read_from_kafka()), mimetype="application/json")
+
+
+@app.route("/kafka-client-api/delete-topic", methods=["POST", "GET"])
+def delete_topic():
+    a = AdminClient({"bootstrap.servers": kafka_dns})
+
+    query_string = urllib.parse.parse_qs(request.query_string.decode("UTF-8"))
+    app.logger.debug("Request query_string: " + str(query_string))
+    topic = [query_string["topic"][0]]
+
+    print('Topic submitted for deletion: ', topic)
+
+    fs = a.delete_topics(topic, operation_timeout=30)
+
+    # Wait for operation to finish.
+    for topic, f in fs.items():
+        try:
+            f.result()  # The result itself is None
+            print("Topic {} deleted".format(topic))
+        except Exception as e:
+            print("Failed to delete topic {}: {}".format(topic, e))
+    
+    
+    new_topic = [NewTopic(topic, num_partitions=3, replication_factor=1)]
+    # Call create_topics to asynchronously create topics, a dict
+    # of <topic,future> is returned.
+    fs = a.create_topics(new_topic)
+
+    # Wait for operation to finish.
+    # Timeouts are preferably controlled by passing request_timeout=15.0
+    # to the create_topics() call.
+    # All futures will finish at the same time.
+    for topic, f in fs.items():
+        try:
+            f.result()  # The result itself is None
+            print("Topic {} created".format(topic))
+        except Exception as e:
+            print("Failed to create topic {}: {}".format(topic, e))
+    
+    return Response(f"DELETE REQUEST RECEIVED for topic: {topic}", mimetype="text/plain")
+
 
 
 ###################################
@@ -136,38 +177,34 @@ def get_consumer(topic, group_id):
             auto_offset_reset="earliest",
             enable_auto_commit=True,
             group_id=str(group_id),
-            
-            # connections_max_idle_ms – Close idle connections after the number of milliseconds 
-            # specified by this config. The broker closes idle connections after 
+            # connections_max_idle_ms – Close idle connections after the number of milliseconds
+            # specified by this config. The broker closes idle connections after
             # connections.max.idle.ms, so this avoids hitting unexpected socket disconnected errors
             # on the client. Default: 540000
             connections_max_idle_ms=305001,
-            
-            # request_timeout_ms (int) – Client request timeout in milliseconds. Default: 305000. 
+            # request_timeout_ms (int) – Client request timeout in milliseconds. Default: 305000.
             # Must be smaller than connections_max_idle_ms
             # request_timeout_ms=1900,
-            
-            # session_timeout_ms (int) – The timeout used to detect failures when using Kafka’s 
-            # group management facilities. The consumer sends periodic heartbeats to indicate its 
+            # session_timeout_ms (int) – The timeout used to detect failures when using Kafka’s
+            # group management facilities. The consumer sends periodic heartbeats to indicate its
             # liveness to the broker. If no heartbeats are received by the broker before the expiration
             #  of this session timeout, then the broker will remove this consumer from the group and
             #  initiate a rebalance. Note that the value must be in the allowable range as configured
-            #  in the broker configuration by group.min.session.timeout.ms and 
+            #  in the broker configuration by group.min.session.timeout.ms and
             # group.max.session.timeout.ms. Default: 10000
             # session_timeout_ms=1899,
-
             # heartbeat_interval_ms (int) – The expected time in milliseconds between heartbeats
-            #  to the consumer coordinator when using Kafka’s group management facilities. 
-            # Heartbeats are used to ensure that the consumer’s session stays active and to 
-            # facilitate rebalancing when new consumers join or leave the group. 
-            # The value must be set lower than session_timeout_ms, but typically 
+            #  to the consumer coordinator when using Kafka’s group management facilities.
+            # Heartbeats are used to ensure that the consumer’s session stays active and to
+            # facilitate rebalancing when new consumers join or leave the group.
+            # The value must be set lower than session_timeout_ms, but typically
             # should be set no higher than 1/3 of that value. It can be adjusted even lower
             #  to control the expected time for normal rebalances. Default: 3000
             # heartbeat_interval_ms=1000,
         )
         return consumer
     except Exception as e:
-        app.logger.error("failed to connect KafkaConsumer with error: " + str(e)) 
+        app.logger.error("failed to connect KafkaConsumer with error: " + str(e))
 
 
 ###################################
@@ -175,4 +212,3 @@ def get_consumer(topic, group_id):
 ###################################
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=float(os.getenv("DW_PORT", "8080")))
-

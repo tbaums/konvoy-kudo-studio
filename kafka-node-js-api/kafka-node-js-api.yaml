@@ -4,6 +4,7 @@ metadata:
   labels:
     app: kafka-node-js-api
   name: kafka-node-js-api
+  namespace: kafka-node-js-api
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -37,6 +38,8 @@ spec:
           #TODO: get TLS working because this is v dangerous
         - name: NODE_TLS_REJECT_UNAUTHORIZED
           value: '0'
+        - name: KAFKA_ENDPOINT
+          value: 'kafka-kafka-0.kafka-svc.platform-services.svc.cluster.local:9093'
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -47,6 +50,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kafka-node-js-api-svc
+  namespace: kafka-node-js-api
 spec:
   selector:
     app: kafka-node-js-api
@@ -60,6 +64,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
   name: kafka-node-js-api-ingress
+  namespace: kafka-node-js-api
 spec:
   rules:
   - http:

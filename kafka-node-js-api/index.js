@@ -3,7 +3,7 @@ var http = require('http');
 var kafka = require('kafka-node')
 
 // TODO: Rename this variable to something better
-const kafka_dns = 'kafka-kafka-0.kafka-svc.' + process.env.CURRENT_POD_NAMESPACE + '.svc.cluster.local:9093'
+const kafka_dns = process.env.KAFKA_ENDPOINT
 
 const client = new kafka.KafkaClient({ kafkaHost: kafka_dns })
 const admin = new kafka.Admin(client)
