@@ -26,7 +26,11 @@ Please review the [Support Matrix](#support-matrix) for version compatibility.
 
 ### Create namespaces
 
-1. `kubectl create ns kafka-cassandra-connector kafka-node-js-api kafka-robot-actors svelte-ui kafka-client-api`
+1. `kubectl create ns kafka-cassandra-connector`
+1. `kubectl create ns kafka-node-js-api`
+1. `kubectl create ns kafka-robot-actors` 
+1. `kubectl create ns svelte-ui`
+1. `kubectl create ns kafka-client-api`
 
 ### Deploy Kudo Kafka
 
