@@ -31,6 +31,7 @@ Please review the [Support Matrix](#support-matrix) for version compatibility.
 1. `kubectl create ns kafka-robot-actors` 
 1. `kubectl create ns svelte-ui`
 1. `kubectl create ns kafka-client-api`
+1. `kubectl create ns platform-services`
 
 ### Deploy Kudo Kafka
 
@@ -38,7 +39,7 @@ Please review the [Support Matrix](#support-matrix) for version compatibility.
 1. Install KUDO on your cluster: `kubectl kudo init --wait`
 1. Next, install Zookeeper, which is a dependency for Kafka: `kubectl kudo install zookeeper -n platform-services`
 1. Wait for all 3 Zookeeper pods to be `RUNNING` and `READY`
-1. `kubectl kudo install kafka --instance=kafka -p ADD_SERVICE_MONITOR=true DELETE_TOPIC_ENABLE=true -n platform-services`
+1. `kubectl kudo install kafka --instance=kafka -p ADD_SERVICE_MONITOR=true -p DELETE_TOPIC_ENABLE=true -n platform-services`
 1. Wait for all 3 Kafka brokers to be `RUNNING` and `READY`
 
 ### Deploy KUDO Cassandra
