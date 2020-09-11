@@ -68,11 +68,14 @@
 
     //need to create an array of actors because Svelte can't iterate over Map objects
     function gen_actor_list() {
-        // let arr = [];
-        $actors = []
-        for (let item of $map.keys()) {
-            $actors.push(item)
-        }
+        let xhr = new XMLHttpRequest()
+        xhr.responseType = 'json'
+        let url = 'https://' + current_host + '/robot-api/list'
+        console.log("url is: ", url)
+        xhr.open("GET", url)
+        xhr.send()
+
+        $actors = xhr.response
         return $actors
     }
 
@@ -147,7 +150,6 @@
         console.log("url is: ", url)
         xhr.open("GET", url)
         xhr.send()
-
     }
 
 

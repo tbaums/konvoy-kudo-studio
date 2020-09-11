@@ -101,7 +101,7 @@ def list_robots(robots=robots):
     print(f"*******")
     print(f"Current robot list: {robots}")
     print(f"*******")
-    return Response(f"Current robot count: {len(robots)}", mimetype="text/plain")
+    return Response([robot.name for robot in robots], mimetype='application/json')
 
 
 @app.route("/robot-api/start", methods=["GET"])
