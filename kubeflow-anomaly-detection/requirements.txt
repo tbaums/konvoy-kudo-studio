@@ -43,7 +43,7 @@ google-resumable-media==1.0.0
 googleapis-common-protos==1.52.0
 grpcio==1.31.0
 h5py==2.10.0
-httplib2==0.18.1
+httplib2==0.19.0
 ibm-cos-sdk==2.7.0
 ibm-cos-sdk-core==2.7.0
 ibm-cos-sdk-s3transfer==2.7.0
